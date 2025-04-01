@@ -26,12 +26,8 @@ public class UserEntity {
     private String email;
     @Column(length = 200, nullable = false)
     private String password;
-    @Column(length = 200, nullable = false)
-    private String confirmPassword;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<ComponentEntity> components;
-
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
 }
