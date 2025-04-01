@@ -15,7 +15,7 @@ public class WareStoreEntity {
     @Column(nullable = false)
     private int quantity;
     @Column(length = 100, nullable = false)
-    private String stockStatus; 
+    private String stockStatus;
 
     @ManyToMany(mappedBy = "wareStores")
     private List<ComponentEntity> components;
