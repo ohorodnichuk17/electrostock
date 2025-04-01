@@ -13,9 +13,9 @@ public class WareStoreEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(nullable = false)
-    private int quantity; // к-сть одиниць на складі
+    private int quantity;
     @Column(length = 100, nullable = false)
-    private String stockStatus; // в наявності, на замовлення, в резерві
+    private String stockStatus; 
 
     @ManyToMany(mappedBy = "wareStores")
     private List<ComponentEntity> components;

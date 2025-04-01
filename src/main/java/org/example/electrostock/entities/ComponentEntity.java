@@ -20,19 +20,15 @@ public class ComponentEntity {
     @Column(length = 500, nullable = true)
     private String description;
     @Column(length = 100, nullable = false)
-    private String category; // резистор, мікросхема, транзистор
+    private String category;
     @Column(length = 100, nullable = false)
-    private String manufacturer; // виробник
+    private String manufacturer;
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal price;
-    @Column(length = 100, nullable = true)
-    private String unit; // одиниця виміру(шт, упаковка, метр і тд)
-
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
-
     @ManyToMany
     @JoinTable(
             name = "ware_store_components",

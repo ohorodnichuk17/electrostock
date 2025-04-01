@@ -20,9 +20,9 @@ public class OrderEntity {
     @Column(nullable = false)
     private double totalAmount;
     @Column(length = 100, nullable = false)
-    private String status; // підтверджено, в обробці, відправлено
+    private String status;
     @Column(length = 100, nullable = false)
-    private String paymentStatus; // оплачено, не оплачено
+    private String paymentStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
