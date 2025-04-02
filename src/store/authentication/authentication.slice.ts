@@ -56,6 +56,7 @@ export const authenticationSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(login.fulfilled, (state, action) => {
+                console.log("Login fulfilled", action.payload);
                 const { token } = action.payload;
                 updateUserState(state, token);
                 state.status = Status.SUCCESS;
@@ -64,9 +65,11 @@ export const authenticationSlice = createSlice({
                 state.status = Status.LOADING;
             })
             .addCase(register.fulfilled, (state, action) => {
+                console.log("Register fulfilled", action.payload);
                 const { token } = action.payload;
                 updateUserState(state, token);
                 state.status = Status.SUCCESS;
+                console.log("Status after successful registration:", state.status);
             })
             .addCase(register.pending, (state) => {
                 state.status = Status.LOADING;

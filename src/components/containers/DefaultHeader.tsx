@@ -35,8 +35,6 @@ const DefaultHeader = () => {
                             width: '100%',
                             height: 'auto',
                         }}
-                        mask={false}
-                        preview={false}
                     />
                 </div>
                 <div
@@ -44,7 +42,7 @@ const DefaultHeader = () => {
                     style={{
                         marginLeft: '16px',
                         color: '#fff',
-                        fontSize: '20px',
+                        fontSize: '15px',
                         fontWeight: 'bold',
                         whiteSpace: 'nowrap',
                     }}
@@ -112,8 +110,11 @@ const DefaultHeader = () => {
                                 backgroundColor: '#B88C56',
                                 borderColor: '#B88C56',
                                 color: '#fff',
+                                transition: 'all 0.3s ease',
                             }}
                             icon={<UserOutlined/>}
+                            onMouseEnter={(e) => (e.currentTarget.style.filter = 'brightness(1.2)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
                         >
                             Login
                         </Button>
@@ -126,7 +127,10 @@ const DefaultHeader = () => {
                                 backgroundColor: '#B88C56',
                                 borderColor: '#B88C56',
                                 color: '#fff',
+                                transition: 'all 0.3s ease',
                             }}
+                            onMouseEnter={(e) => (e.currentTarget.style.filter = 'brightness(1.2)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.filter = 'brightness(1)')}
                         >
                             Register
                         </Button>
