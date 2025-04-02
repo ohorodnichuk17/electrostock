@@ -3,9 +3,9 @@ package org.example.electrostock.services;
 import lombok.RequiredArgsConstructor;
 import org.example.electrostock.configuration.security.JwtService;
 import org.example.electrostock.constants.Roles;
-import org.example.electrostock.dto.account.AuthResponseDto;
-import org.example.electrostock.dto.account.LoginDto;
-import org.example.electrostock.dto.account.RegisterDto;
+import org.example.electrostock.dto.authentication.AuthResponseDto;
+import org.example.electrostock.dto.authentication.LoginDto;
+import org.example.electrostock.dto.authentication.RegisterDto;
 import org.example.electrostock.entities.RoleEntity;
 import org.example.electrostock.entities.UserEntity;
 import org.example.electrostock.entities.UserRoleEntity;
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AccountService {
+public class AuthenticationService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final UserRoleRepository userRoleRepository;

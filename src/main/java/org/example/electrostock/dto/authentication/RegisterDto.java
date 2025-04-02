@@ -1,4 +1,4 @@
-package org.example.electrostock.dto.account;
+package org.example.electrostock.dto.authentication;
 
 import lombok.Data;
 
