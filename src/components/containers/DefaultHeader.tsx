@@ -1,11 +1,11 @@
-import { Button, Layout, Menu } from 'antd';
+import {Button, Image, Layout, Menu} from 'antd';
 import { Link, useLocation } from 'react-router-dom';
 import { UserOutlined, PoweroffOutlined, UserAddOutlined } from '@ant-design/icons';
-import {logout} from "../../store/authentication/authentication.slice.ts";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux";
-import {BackButton} from "../button/BackButton.tsx";
+import { logout } from "../../store/authentication/authentication.slice.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux";
+import { BackButton } from "../button/BackButton.tsx";
 import * as React from "react";
-import ButtonGroup from "antd/es/button/button-group";
+import Logo from "../../assets/logo.png"
 
 const { Header } = Layout;
 
@@ -20,51 +20,114 @@ const DefaultHeader = () => {
     };
 
     return (
-        <Header style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-                <BackButton />
-                <div className="demo-logo" />
+        <Header style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            backgroundColor: '#C39964',
+            padding: '0 24px',
+        }}>
+            <div style={{display: 'flex', alignItems: 'center'}}>
+                <div style={{width: '40px', flexShrink: 0}}>
+                    <Image
+                        src={Logo}
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                        }}
+                        mask={false}
+                        preview={false}
+                    />
+                </div>
+                <div
+                    className="demo-logo"
+                    style={{
+                        marginLeft: '16px',
+                        color: '#fff',
+                        fontSize: '20px',
+                        fontWeight: 'bold',
+                        whiteSpace: 'nowrap',
+                    }}
+                >
+                    Electro Stock
+                </div>
             </div>
+
 
             <Menu
                 theme="dark"
                 mode="horizontal"
                 selectedKeys={[location.pathname.substr(1)]}
-                style={{ flex: 1, minWidth: 0 }}
+                style={{
+                    flex: 1,
+                    minWidth: 0,
+                    backgroundColor: 'transparent',
+                    borderColor: 'transparent',
+                    color: '#fff',
+                }}
+                itemStyle={{
+                    color: '#fff',
+                    fontSize: '16px',
+                }}
+                activeKeyStyle={{
+                    backgroundColor: '#B88C56',
+                    color: '#fff',
+                }}
             >
-                <Menu.Item key={'categories'}>
-                    <Link to={`/`} style={{ textDecoration: 'none' }}>
-                        Categories
-                    </Link>
-                </Menu.Item>
             </Menu>
 
             {isLogin ? (
-                <ButtonGroup size="large">
+                <div style={{display: 'flex', alignItems: 'center', gap: '8px'}}>
                     <Button
-                        type="primary"
-                        style={{ display: 'flex', alignItems: 'center', marginRight: '8px' }}
+                        type="text"
+                        style={{
+                            color: '#fff',
+                            display: 'flex',
+                            alignItems: 'center',
+                            border: 'none',
+                        }}
                     >
-                        <UserOutlined style={{ marginRight: '4px' }} />
+                        <UserOutlined style={{marginRight: '4px', color: '#fff'}}/>
                         {user?.name}
                     </Button>
                     <Button
                         type="primary"
-                        icon={<PoweroffOutlined />}
-                        onClick={() => handleLogout()}
+                        icon={<PoweroffOutlined/>}
+                        onClick={handleLogout}
+                        style={{
+                            backgroundColor: '#B88C56',
+                            borderColor: '#B88C56',
+                            color: '#fff',
+                        }}
                     >
                         Logout
                     </Button>
-                </ButtonGroup>
+                </div>
             ) : (
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <Link to="/login" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        <Button icon={<UserOutlined />}>
+                <div style={{display: 'flex', gap: '8px'}}>
+                    <Link to="/login" style={{color: 'inherit', textDecoration: 'none'}}>
+                        <Button
+                            type="text"
+                            style={{
+                                backgroundColor: '#B88C56',
+                                borderColor: '#B88C56',
+                                color: '#fff',
+                            }}
+                            icon={<UserOutlined/>}
+                        >
                             Login
                         </Button>
                     </Link>
-                    <Link to="/register" style={{ color: 'inherit', textDecoration: 'none' }}>
-                        <Button type="primary" icon={<UserAddOutlined />}>
+                    <Link to="/register" style={{color: 'inherit', textDecoration: 'none'}}>
+                        <Button
+                            type="primary"
+                            icon={<UserAddOutlined/>}
+                            style={{
+                                backgroundColor: '#B88C56',
+                                borderColor: '#B88C56',
+                                color: '#fff',
+                            }}
+                        >
                             Register
                         </Button>
                     </Link>
