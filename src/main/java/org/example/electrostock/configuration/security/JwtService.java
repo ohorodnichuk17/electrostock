@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static java.lang.String.format;
 
@@ -22,6 +24,7 @@ public class JwtService {
     @Value("${electro.stock.app.jwtSecret}")
     private String jwtSecret;
     private final String jwtIssuer = "electrostock.io";
+    private final Set<String> blacklistedTokens = ConcurrentHashMap.newKeySet();
 
     public String generateAccessToken(UserEntity user) {
         var roles = userRoleRepository.findByUser(user);
@@ -85,5 +88,13 @@ public class JwtService {
             System.out.println("JWT claims string is empty - " + ex.getMessage());
         }
         return false;
+    }
+
+    public void invalidateToken(String token) {
+        blacklistedTokens.add(token);
+    }
+
+    public boolean isTokenValid(String token) {
+        return !blacklistedTokens.contains(token);
     }
 }

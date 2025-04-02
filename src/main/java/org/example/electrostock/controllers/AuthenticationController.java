@@ -1,5 +1,7 @@
 package org.example.electrostock.controllers;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.example.electrostock.dto.authentication.AuthResponseDto;
 import org.example.electrostock.dto.authentication.LoginDto;
@@ -37,4 +39,17 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("Authorization", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return ResponseEntity.ok().build();
+    }
+
 }

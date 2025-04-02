@@ -60,4 +60,8 @@ public class AuthenticationService {
 
         return newUser;
     }
+
+    public void logout(String token) {
+        jwtService.invalidateToken(token);
+    }
 }
