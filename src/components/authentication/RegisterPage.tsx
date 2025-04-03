@@ -41,6 +41,7 @@ const RegisterPage: React.FC = () => {
 
     return (
         <Spin tip="Loading" size="large" spinning={status === Status.LOADING}>
+        {/*<>*/}
             {contextHolder}
             <div
                 style={{
@@ -170,6 +171,7 @@ const RegisterPage: React.FC = () => {
                     )}
                 </div>
             </div>
+    {/*</>*/}
         </Spin>
     );
 };

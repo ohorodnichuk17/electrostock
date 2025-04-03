@@ -2,10 +2,10 @@ import {AnyAction, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RejectedAction} from "../../utils/types/redux";
 import {IAuthenticationState, IUser} from "../../interfaces/authentication";
 import {jwtDecode} from "jwt-decode";
-import {addLocalStorage, deleteLocalStorage} from "../../utils/storage/localStorageUtils.ts";
+import {addLocalStorage, deleteLocalStorage} from "../../utils/storage/localStorageUtils";
 import {Status} from "../../utils/enums";
 import {act} from "react";
-import {login, register} from "./authentication.action.ts";
+import {login, register} from "./authentication.action";
 
 function isRejectedAction(action: AnyAction): action is RejectedAction {
     return action.type.endsWith('/rejected');
