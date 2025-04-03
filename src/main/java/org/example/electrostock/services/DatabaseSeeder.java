@@ -1,10 +1,11 @@
 package org.example.electrostock.services;
 
-import org.apache.catalina.User;
 import org.example.electrostock.constants.Roles;
+import org.example.electrostock.entities.ComponentEntity;
 import org.example.electrostock.entities.RoleEntity;
 import org.example.electrostock.entities.UserEntity;
 import org.example.electrostock.entities.UserRoleEntity;
+import org.example.electrostock.repositories.ComponentRepository;
 import org.example.electrostock.repositories.RoleRepository;
 import org.example.electrostock.repositories.UserRepository;
 import org.example.electrostock.repositories.UserRoleRepository;
@@ -17,17 +18,20 @@ public class DatabaseSeeder {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ComponentRepository componentRepository;
 
     public DatabaseSeeder(
             UserRoleRepository userRoleRepository,
             RoleRepository roleRepository,
             UserRepository userRepository,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            ComponentRepository componentRepository
     ) {
         this.userRoleRepository = userRoleRepository;
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.componentRepository = componentRepository;
     }
 
     public void seedAllTables() {

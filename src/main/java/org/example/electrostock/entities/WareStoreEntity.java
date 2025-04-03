@@ -2,6 +2,8 @@ package org.example.electrostock.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -12,11 +14,9 @@ public class WareStoreEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(nullable = false)
-    private int quantity;
     @Column(length = 100, nullable = false)
-    private String stockStatus;
+    private String name;
 
-    @ManyToMany(mappedBy = "wareStores")
+    @OneToMany(mappedBy = "wareStore")
     private List<ComponentEntity> components;
 }

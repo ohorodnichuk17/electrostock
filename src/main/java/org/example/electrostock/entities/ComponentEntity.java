@@ -20,20 +20,21 @@ public class ComponentEntity {
     @Column(length = 500, nullable = true)
     private String description;
     @Column(length = 100, nullable = false)
+    private String stockStatus;
+    @Column(length = 100, nullable = false)
     private String category;
     @Column(length = 100, nullable = false)
     private String manufacturer;
     @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal price;
+    @Column(nullable = false)
+    private int quantity;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
-    @ManyToMany
-    @JoinTable(
-            name = "ware_store_components",
-            joinColumns = @JoinColumn(name = "component_id"),
-            inverseJoinColumns = @JoinColumn(name = "ware_store_id")
-    )
-    private List<WareStoreEntity> wareStores;
+    @ManyToOne
+    @JoinColumn(name = "ware_store_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private WareStoreEntity wareStore;
 }

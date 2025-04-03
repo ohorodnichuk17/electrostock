@@ -1,6 +1,7 @@
 package org.example.electrostock.configuration.security;
 
 import lombok.RequiredArgsConstructor;
+import org.example.electrostock.constants.Roles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -33,6 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/webjars/**").permitAll()
                         .requestMatchers("/rest-api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/api/ware-store/**").hasAnyAuthority(Roles.Supplier)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
