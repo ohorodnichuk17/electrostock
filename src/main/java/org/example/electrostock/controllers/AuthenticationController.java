@@ -12,7 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("api/authentication")
 @RequiredArgsConstructor
@@ -51,5 +51,4 @@ public class AuthenticationController {
 
         return ResponseEntity.ok().build();
     }
-
 }
