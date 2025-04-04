@@ -34,6 +34,16 @@ public class WareStoreController {
         return new ResponseEntity<>(wareStores, HttpStatus.OK);
     }
 
+    @GetMapping("/{wareStoreId}")
+    public ResponseEntity<WareStoreItemDto> getById(@PathVariable int wareStoreId) {
+        var entity = wareStoreRepository.findById(wareStoreId).orElse(null);
+        if (entity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var result =  wareStoreMapper.wareStoreItemDto(entity);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @PostMapping("create")
     public ResponseEntity<WareStoreItemDto> create(@RequestBody WareStoreCreateDto dto) {
         try {
