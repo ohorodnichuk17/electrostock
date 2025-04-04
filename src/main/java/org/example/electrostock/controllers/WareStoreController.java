@@ -6,11 +6,14 @@ import org.example.electrostock.dto.warestore.WareStoreCreateDto;
 import org.example.electrostock.dto.warestore.WareStoreEditDto;
 import org.example.electrostock.dto.warestore.WareStoreItemDto;
 import org.example.electrostock.entities.WareStoreEntity;
+import org.example.electrostock.exceptions.UnauthorizedException;
 import org.example.electrostock.mapper.WareStoreMapper;
 import org.example.electrostock.repositories.WareStoreRepository;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +28,16 @@ public class WareStoreController {
     private final WareStoreRepository wareStoreRepository;
     private final WareStoreMapper wareStoreMapper;
 
+    private void checkAuthentication() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            throw new UnauthorizedException("Unauthorized access");
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<WareStoreItemDto>> index() {
+        checkAuthentication();
         List<WareStoreItemDto> wareStores = wareStoreRepository.findAll()
                 .stream()
                 .map(wareStoreMapper::wareStoreItemDto)
@@ -36,6 +47,7 @@ public class WareStoreController {
 
     @GetMapping("/{wareStoreId}")
     public ResponseEntity<WareStoreItemDto> getById(@PathVariable int wareStoreId) {
+        checkAuthentication();
         var entity = wareStoreRepository.findById(wareStoreId).orElse(null);
         if (entity == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -46,6 +58,7 @@ public class WareStoreController {
 
     @PostMapping("create")
     public ResponseEntity<WareStoreItemDto> create(@RequestBody WareStoreCreateDto dto) {
+        checkAuthentication();
         try {
             WareStoreEntity entity = wareStoreMapper.wareStoreCreateDto(dto);
             wareStoreRepository.save(entity);
@@ -59,10 +72,7 @@ public class WareStoreController {
 
     @PutMapping("edit")
     public ResponseEntity<WareStoreItemDto> edit(@RequestBody WareStoreEditDto dto) {
-        if (dto == null) {
-            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }
-
+        checkAuthentication();
         try {
             WareStoreEntity entity = wareStoreMapper.wareStoreEditDto(dto);
             wareStoreRepository.save(entity);
