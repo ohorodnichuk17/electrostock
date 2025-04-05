@@ -1,6 +1,8 @@
 package org.example.electrostock.dto.component;
 
 import lombok.Data;
+import org.example.electrostock.entities.UserEntity;
+import org.example.electrostock.entities.WareStoreEntity;
 
 import java.math.BigDecimal;
 
@@ -15,5 +17,5 @@ public class ComponentEditDto {
     private String stockStatus;
     private BigDecimal price;
     private int wareStoreId;
-    private int supplierId;
+    private int userId;
 }

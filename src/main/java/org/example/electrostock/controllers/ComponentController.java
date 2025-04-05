@@ -5,7 +5,7 @@ import org.example.electrostock.dto.component.ComponentCreateDto;
 import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.entities.ComponentEntity;
 import org.example.electrostock.exceptions.UnauthorizedException;
-import org.example.electrostock.mapper.ComponentMapperImpl;
+import org.example.electrostock.mapper.ComponentMapper;
 import org.example.electrostock.repositories.ComponentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @RequestMapping("api/component")
 public class ComponentController {
     private final ComponentRepository componentRepository;
-    private final ComponentMapperImpl componentMapper;
+    private final ComponentMapper componentMapper;
 
     @Autowired
-    public ComponentController(ComponentRepository componentRepository, ComponentMapperImpl componentMapper) {
+    public ComponentController(ComponentRepository componentRepository, ComponentMapper componentMapper) {
         this.componentRepository = componentRepository;
         this.componentMapper = componentMapper;
     }

@@ -14,5 +14,5 @@ public class ComponentCreateDto {
     private String stockStatus;
     private BigDecimal price;
     private int wareStoreId;
-    private int supplierId;
+    private int userId;
 }
