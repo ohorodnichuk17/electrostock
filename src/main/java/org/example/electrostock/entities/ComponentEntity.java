@@ -1,7 +1,9 @@
 package org.example.electrostock.entities;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.electrostock.serializer.ComponentSerializer;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -11,6 +13,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="tbl_components")
+@JsonSerialize(using = ComponentSerializer.class)
 public class ComponentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
