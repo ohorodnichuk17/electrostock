@@ -35,6 +35,8 @@ public class SecurityConfig {
                         .requestMatchers("/rest-api-docs/**").permitAll()
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/api/ware-store/**").hasAnyAuthority(Roles.Supplier)
+                        .requestMatchers("/api/component/create").hasAnyAuthority(Roles.Supplier)
+                        .requestMatchers("/api/component").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -5,8 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class ComponentItemDto {
-    private int id;
+public class ComponentCreateDto {
     private int quantity;
     private String name;
     private String description;
@@ -15,5 +14,5 @@ public class ComponentItemDto {
     private String stockStatus;
     private BigDecimal price;
     private int wareStoreId;
-    private int userId;
+    private int supplierId;
 }
