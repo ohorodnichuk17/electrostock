@@ -2,6 +2,7 @@ package org.example.electrostock.controllers;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.electrostock.dto.authentication.AuthResponseDto;
 import org.example.electrostock.dto.authentication.LoginDto;
@@ -30,7 +31,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("register")
-    public ResponseEntity<UserEntity> register(@RequestBody RegisterDto dto) {
+    public ResponseEntity<UserEntity> register(@RequestBody @Valid RegisterDto dto) {
         try {
             var res = service.register(dto);
             return ResponseEntity.ok(res);

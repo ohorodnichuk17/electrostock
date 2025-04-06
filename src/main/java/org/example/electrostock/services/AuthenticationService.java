@@ -24,6 +24,7 @@ public class AuthenticationService {
     private final UserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final EmailService emailService;
 
     public AuthResponseDto login(LoginDto request) {
         var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
@@ -50,16 +51,19 @@ public class AuthenticationService {
 
         RoleEntity role = roleRepository.findByName(Roles.User);
 
-        var ur = UserRoleEntity
-                .builder()
+        var ur = UserRoleEntity.builder()
                 .role(role)
                 .user(newUser)
                 .build();
 
         userRoleRepository.save(ur);
 
+        String fullName = newUser.getFirstName() + " " + newUser.getLastName();
+        emailService.sendHtmlRegistrationEmail(newUser.getEmail(), fullName);
+
         return newUser;
     }
+
 
     public void logout(String token) {
         jwtService.invalidateToken(token);

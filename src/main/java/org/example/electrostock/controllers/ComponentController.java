@@ -2,6 +2,7 @@ package org.example.electrostock.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.electrostock.dto.component.ComponentCreateDto;
+import org.example.electrostock.dto.component.ComponentEditDto;
 import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.entities.ComponentEntity;
 import org.example.electrostock.exceptions.UnauthorizedException;
@@ -25,7 +26,8 @@ public class ComponentController {
     private final ComponentMapper componentMapper;
 
     @Autowired
-    public ComponentController(ComponentRepository componentRepository, ComponentMapper componentMapper) {
+    public ComponentController(ComponentRepository componentRepository,
+                               ComponentMapper componentMapper) {
         this.componentRepository = componentRepository;
         this.componentMapper = componentMapper;
     }
@@ -46,6 +48,16 @@ public class ComponentController {
         return new ResponseEntity<>(components, HttpStatus.OK);
     }
 
+    @GetMapping("/{componentId}")
+    public ResponseEntity<ComponentItemDto> getById(@PathVariable int componentId) {
+        var entity = componentRepository.findById(componentId).orElse(null);
+        if (entity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var result =  componentMapper.componentItemDto(entity);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @PostMapping("create")
     @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<ComponentItemDto> create(@RequestBody ComponentCreateDto dto) {
@@ -55,6 +67,21 @@ public class ComponentController {
             componentRepository.save(entity);
             ComponentItemDto response = componentMapper.componentItemDto(entity);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("edit")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<ComponentItemDto> create(@RequestBody ComponentEditDto dto) {
+        checkuthrorization();
+        try {
+            ComponentEntity entity = componentMapper.editDtoEntity(dto);
+            componentRepository.save(entity);
+            ComponentItemDto response = componentMapper.componentItemDto(entity);
+            return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

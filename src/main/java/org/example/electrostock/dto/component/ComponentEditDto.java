@@ -16,6 +16,4 @@ public class ComponentEditDto {
     private String manufacturer;
     private String stockStatus;
     private BigDecimal price;
-    private int wareStoreId;
-    private int userId;
 }

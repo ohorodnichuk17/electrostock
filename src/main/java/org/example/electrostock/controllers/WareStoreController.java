@@ -37,7 +37,6 @@ public class WareStoreController {
 
     @GetMapping
     public ResponseEntity<List<WareStoreItemDto>> index() {
-        checkAuthentication();
         List<WareStoreItemDto> wareStores = wareStoreRepository.findAll()
                 .stream()
                 .map(wareStoreMapper::wareStoreItemDto)
@@ -47,7 +46,6 @@ public class WareStoreController {
 
     @GetMapping("/{wareStoreId}")
     public ResponseEntity<WareStoreItemDto> getById(@PathVariable int wareStoreId) {
-        checkAuthentication();
         var entity = wareStoreRepository.findById(wareStoreId).orElse(null);
         if (entity == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
