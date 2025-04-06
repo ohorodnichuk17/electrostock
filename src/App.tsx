@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import DefaultLayout from "./components/containers/DefaultLayout.tsx";
 import RegisterPage from "./components/authentication/RegisterPage.tsx";
 import LoginPage from "./components/authentication/LoginPage.tsx";
+import RegisterSuccessPage from "./components/authentication/RegisterSuccessPage.tsx";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +15,7 @@ function App() {
         <Route path="/" element={<DefaultLayout />}>
             <Route path="register" element={<RegisterPage />}/>
             <Route path="login" element={<LoginPage />}/>
-
+            <Route path="register-success" element={<RegisterSuccessPage />} />
         </Route>
       </Routes>
     </>

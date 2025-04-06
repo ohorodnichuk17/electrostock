@@ -67,6 +67,11 @@ export const authenticationSlice = createSlice({
             .addCase(register.fulfilled, (state, action) => {
                 console.log("Register fulfilled", action.payload);
                 const { token } = action.payload;
+                if (!token || typeof token !== 'string') {
+                    console.error('Invalid or missing token in register.fulfilled:', token);
+                    state.status = Status.ERROR;
+                    return;
+                }
                 updateUserState(state, token);
                 state.status = Status.SUCCESS;
                 console.log("Status after successful registration:", state.status);

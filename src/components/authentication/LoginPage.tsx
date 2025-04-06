@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Button, Form, Input, Typography, message, Spin } from 'antd';
+import { useState } from "react";
+import { Button, Form, Input, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNotification } from '../../hooks/notification';
-import { Status } from '../../utils/enums';
 import { login } from "../../store/authentication/authentication.action.ts";
 import { ILogin } from "../../interfaces/authentication";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -12,28 +12,24 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 const LoginPage: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [messageApi, contextHolder] = message.useMessage();
-    const { handleError } = useNotification(messageApi);
-    const status = useAppSelector(state => state.authentication.status);
+
+    const [isLoading, setIsLoading] = useState(false);
 
     const onFinish = async (values: ILogin) => {
         try {
+            setIsLoading(true);
             const response = await dispatch(login(values));
             unwrapResult(response);
             navigate('/');
         } catch (error) {
-            handleError(error);
+            console.log('Error ' + error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <Spin
-            tip="Loading"
-            size="large"
-            spinning={status === Status.LOADING}
-            style={{ color: '#C39964' }}
-        >
-            {contextHolder}
+        <>
             <div
                 style={{
                     display: 'flex',
@@ -114,6 +110,7 @@ const LoginPage: React.FC = () => {
                                 borderColor: '#C39964',
                                 fontWeight: 'bold',
                             }}
+                            loading={isLoading}
                         >
                             Log In
                         </Button>
@@ -134,7 +131,7 @@ const LoginPage: React.FC = () => {
                     </Typography.Text>
                 </Form>
             </div>
-        </Spin>
+        </>
     );
 };
 

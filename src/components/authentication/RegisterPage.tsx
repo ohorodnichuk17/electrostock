@@ -1,11 +1,10 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Button, Form, Input, Typography, message, Spin } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { useNotification } from '../../hooks/notification';
-import { Status } from '../../utils/enums';
 import { IRegister } from "../../interfaces/authentication";
 import { register } from "../../store/authentication/authentication.action.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
@@ -14,11 +13,9 @@ import Electronics from "../../assets/electronics.png";
 const RegisterPage: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
-    const [messageApi, contextHolder] = message.useMessage();
-    const { handleError } = useNotification(messageApi);
-    const status = useAppSelector(state => state.authentication.status);
 
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         const handleResize = () => {
@@ -31,18 +28,22 @@ const RegisterPage: React.FC = () => {
 
     const onFinish = async (values: IRegister) => {
         try {
+            setIsLoading(true);
             const response = await dispatch(register(values));
-            unwrapResult(response);
-            navigate('/');
+            const result = unwrapResult(response);
+            if (result) {
+                window.location.href = '/register-success';
+            }
+            // unwrapResult(response);
         } catch (error) {
-            handleError(error);
+           console.log('Error ' + error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     return (
-        <Spin tip="Loading" size="large" spinning={status === Status.LOADING}>
-        {/*<>*/}
-            {contextHolder}
+        <>
             <div
                 style={{
                     display: 'flex',
@@ -138,6 +139,7 @@ const RegisterPage: React.FC = () => {
                                     block
                                     size="large"
                                     style={{ backgroundColor: '#C39964', borderColor: '#C39964', fontWeight: 'bold' }}
+                                    loading={isLoading}
                                 >
                                     Register
                                 </Button>
@@ -171,8 +173,7 @@ const RegisterPage: React.FC = () => {
                     )}
                 </div>
             </div>
-    {/*</>*/}
-        </Spin>
+        </>
     );
 };
 

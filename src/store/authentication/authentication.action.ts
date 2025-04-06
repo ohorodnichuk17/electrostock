@@ -8,6 +8,7 @@ export const register = createAsyncThunk(
     async (payload: IRegister, { rejectWithValue }) => {
         try {
             const response = await apiClient.post('/api/authentication/register', payload);
+            console.log("Backend response:", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(handleAxiosError(error, 'Error'));
@@ -20,6 +21,7 @@ export const login = createAsyncThunk(
     async(payload: ILogin, {rejectWithValue}) => {
         try {
             const response = await apiClient.post('/api/authentication/login', payload);
+            console.log("Backend response:", response.data);
             return response.data;
         } catch (error) {
             return rejectWithValue(handleAxiosError(error, 'Error'));
