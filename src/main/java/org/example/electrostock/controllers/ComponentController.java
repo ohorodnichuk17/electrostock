@@ -73,13 +73,56 @@ public class ComponentController {
         }
     }
 
+//    @PutMapping("edit")
+//    @SecurityRequirement(name = "bearerAuth")
+//    public ResponseEntity<ComponentItemDto> edit(@RequestBody ComponentEditDto dto) {
+//        checkuthrorization();
+//        try {
+//            ComponentEntity entity = componentMapper.editDtoEntity(dto);
+//            componentRepository.save(entity);
+//            ComponentItemDto response = componentMapper.componentItemDto(entity);
+//            return new ResponseEntity<>(response, HttpStatus.OK);
+//        } catch(Exception ex) {
+//            ex.printStackTrace();
+//            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//        }
+//    }
+
     @PutMapping("edit")
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<ComponentItemDto> create(@RequestBody ComponentEditDto dto) {
+    public ResponseEntity<ComponentItemDto> edit(@RequestBody ComponentEditDto dto) {
         checkuthrorization();
         try {
-            ComponentEntity entity = componentMapper.editDtoEntity(dto);
+            ComponentEntity entity = componentRepository.findById(dto.getId())
+                    .orElseThrow(() -> new RuntimeException("Component not found"));
+
+            if (dto.getQuantity() != 0) {
+                entity.setQuantity(dto.getQuantity());
+            }
+            if (dto.getName() != null) {
+                entity.setName(dto.getName());
+            }
+            if (dto.getDescription() != null) {
+                entity.setDescription(dto.getDescription());
+            }
+            if (dto.getCategory() != null) {
+                entity.setCategory(dto.getCategory());
+            }
+            if (dto.getManufacturer() != null) {
+                entity.setManufacturer(dto.getManufacturer());
+            }
+            if (dto.getStockStatus() != null) {
+                entity.setStockStatus(dto.getStockStatus());
+            }
+            if (dto.getPrice() != null) {
+                entity.setPrice(dto.getPrice());
+            }
+            if (dto.getImageUrl() != null) {
+                entity.setImageUrl(dto.getImageUrl());
+            }
+
             componentRepository.save(entity);
+
             ComponentItemDto response = componentMapper.componentItemDto(entity);
             return new ResponseEntity<>(response, HttpStatus.OK);
         } catch(Exception ex) {

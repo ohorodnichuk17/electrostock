@@ -27,8 +27,12 @@ public interface ComponentMapper {
 
     @Mapping(source = "wareStoreId", target = "wareStore", qualifiedByName = "mapWareStoreIdToEntity")
     @Mapping(source = "userId", target = "user", qualifiedByName = "mapUserIdToEntity")
+    @Mapping(source = "imageUrl", target = "imageUrl")
     ComponentEntity createDtoEntity(ComponentCreateDto dto);
 
+    @Mapping(source = "wareStoreId", target = "wareStore", qualifiedByName = "mapWareStoreIdToEntity")
+    @Mapping(source = "userId", target = "user", qualifiedByName = "mapUserIdToEntity")
+    @Mapping(source = "imageUrl", target = "imageUrl")
     ComponentEntity editDtoEntity(ComponentEditDto dto);
 
     @Named("mapWareStoreIdToEntity")

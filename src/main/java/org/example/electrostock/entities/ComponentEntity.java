@@ -32,6 +32,8 @@ public class ComponentEntity {
     private BigDecimal price;
     @Column(nullable = false)
     private int quantity;
+    @Column(length = 500)
+    private String imageUrl;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)

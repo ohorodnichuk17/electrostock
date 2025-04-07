@@ -16,6 +16,7 @@ public class ComponentItemDto {
     private String manufacturer;
     private String stockStatus;
     private BigDecimal price;
+    private String imageUrl;
     private int wareStoreId;
     private int userId;
 }
