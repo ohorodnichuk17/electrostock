@@ -1,6 +1,8 @@
 package org.example.electrostock.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import org.example.electrostock.constants.Category;
+import org.example.electrostock.constants.StockStatus;
 import org.example.electrostock.dto.component.ComponentCreateDto;
 import org.example.electrostock.dto.component.ComponentEditDto;
 import org.example.electrostock.dto.component.ComponentItemDto;
@@ -64,6 +66,12 @@ public class ComponentController {
         checkuthrorization();
         try {
             ComponentEntity entity = componentMapper.createDtoEntity(dto);
+            if (dto.getCategory() != null && !isValidCategory(dto.getCategory())) {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+            if (dto.getStockStatus() != null && !isValidStockStatus(dto.getStockStatus())) {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
             componentRepository.save(entity);
             ComponentItemDto response = componentMapper.componentItemDto(entity);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
@@ -96,6 +104,12 @@ public class ComponentController {
             ComponentEntity entity = componentRepository.findById(dto.getId())
                     .orElseThrow(() -> new RuntimeException("Component not found"));
 
+            if (dto.getCategory() != null && !isValidCategory(dto.getCategory())) {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
+            if (dto.getStockStatus() != null && !isValidStockStatus(dto.getStockStatus())) {
+                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+            }
             if (dto.getQuantity() != 0) {
                 entity.setQuantity(dto.getQuantity());
             }
@@ -129,5 +143,17 @@ public class ComponentController {
             ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
+    }
+
+    private boolean isValidCategory(String category) {
+        return category.equals(Category.Chip) ||
+                category.equals(Category.Resistor) ||
+                category.equals(Category.Transistor);
+    }
+
+    private boolean isValidStockStatus(String stockStatus) {
+        return stockStatus.equals(StockStatus.InStock) ||
+                stockStatus.equals(StockStatus.InReserve) ||
+                stockStatus.equals(StockStatus.OnOrder);
     }
 }

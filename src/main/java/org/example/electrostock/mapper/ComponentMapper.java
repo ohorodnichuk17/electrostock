@@ -6,12 +6,9 @@ import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.entities.ComponentEntity;
 import org.example.electrostock.entities.UserEntity;
 import org.example.electrostock.entities.WareStoreEntity;
-import org.example.electrostock.repositories.UserRepository;
-import org.example.electrostock.repositories.WareStoreRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
