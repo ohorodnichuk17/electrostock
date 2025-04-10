@@ -1,28 +1,47 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { useAppSelector } from "../../hooks/redux";
-import { useNavigate } from "react-router-dom";
-import { IWareStoreCreate } from "../../interfaces/warestore";
+import {useNavigate, useParams} from "react-router-dom";
+import { IWareStoreEdit} from "../../interfaces/warestore";
 import { apiClient } from "../../utils/api/apiClient.ts";
 import { Button, Form, Input, message } from "antd";
 
-export default function WarestoreCreatePage() {
+export default function WarestoreEditPage() {
+    const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const { isSupplier } = useAppSelector(state => state.authentication);
+    const [form] = Form.useForm();
     const navigate = useNavigate();
 
-    const onFinish = async (data: IWareStoreCreate) => {
+    useEffect(() => {
+        const fetchWarestore = async () => {
+            setLoading(true);
+            try {
+                const response = await apiClient.get(`api/ware-store/${id}`);
+                form.setFieldsValue({ name: response.data?.name });
+            } catch (error) {
+                console.error('Error fetching warestore:', error);
+                message.error('Failed to fetch warestore');
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchWarestore();
+    }, [id]);
+
+    const onFinish = async (values: IWareStoreEdit) => {
         setLoading(true);
+        const data = { ...values, id };
         try {
-            await apiClient.post('api/ware-store/create', data);
-            message.success('Warestore created successfully');
+            await apiClient.put('api/ware-store/edit', data);
             navigate('/warestores');
+            message.success('Warestore updated successfully');
         } catch (error) {
-            console.log('Warestore creation error: ', error);
-            message.error('Warestore creation failed');
+            console.error('Error updating warestore:', error);
+            message.error('Failed to update warestore');
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     return (
         <div style={{
@@ -47,7 +66,7 @@ export default function WarestoreCreatePage() {
                         fontSize: '18px',
                         fontWeight: 'bold'
                     }}>
-                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to create a warestore!
+                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to edit a warestore!
                     </div>
                 ) : (
                     <>
@@ -58,9 +77,10 @@ export default function WarestoreCreatePage() {
                             marginBottom: '20px',
                             textAlign: 'center'
                         }}>
-                            Create Warestore
+                            Edit Warestore
                         </h1>
                         <Form
+                            form={form}
                             layout="vertical"
                             onFinish={onFinish}
                             style={{

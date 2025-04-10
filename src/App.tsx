@@ -7,6 +7,8 @@ import LoginPage from "./components/authentication/LoginPage.tsx";
 import RegisterSuccessPage from "./components/authentication/RegisterSuccessPage.tsx";
 import MainPage from "./components/MainPage/MainPage.tsx";
 import WarestoreCreatePage from "./components/warestore/WarestoreCreatePage.tsx";
+import WarestoreListPage from "./components/warestore/WarestoreListPage.tsx";
+import WarestoreEditPage from "./components/warestore/WarestoreEditPage.tsx";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,7 +22,9 @@ function App() {
             <Route path="login" element={<LoginPage />}/>
             <Route path="register-success" element={<RegisterSuccessPage />} />
 
-            <Route path={"warestore/create"} element={<WarestoreCreatePage />} />
+            <Route path="warestores" element={<WarestoreListPage/>}/>
+            <Route path="warestore/create" element={<WarestoreCreatePage />} />
+            <Route path="warestore/edit/:id" element={<WarestoreEditPage />} />
         </Route>
       </Routes>
     </>
