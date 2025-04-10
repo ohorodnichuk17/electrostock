@@ -1,20 +1,38 @@
 import * as React from "react";
-import { Layout, Row, Col, Card, Typography, Button } from "antd";
+import {Layout, Row, Col, Card, Typography, Button, message} from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { motion } from "framer-motion";
 import transistor from "../../assets/transistor.png";
 import resistor from "../../assets/resistor.png";
 import controller from "../../assets/controller.png";
 import microchip from "../../assets/microchip.png";
+import {IWareStoreItem} from "../../interfaces/warestore";
+import {useEffect} from "react";
+import {apiClient} from "../../utils/api/apiClient.ts";
 
 const { Title, Text } = Typography;
 
 export default function MainPage() {
-    const categories = [
-        { id: 1, name: "Transistors", icon: transistor},
-        { id: 2, name: "Resistors", icon: resistor },
-        { id: 3, name: "Microchips", icon: microchip },
-        { id: 4, name: "Controllers", icon: controller },
+    const [wareStores, setWareStores] = React.useState<IWareStoreItem[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await apiClient.get<IWareStoreItem[]>('api/ware-store');
+                setWareStores(response.data);
+            } catch (error) {
+                console.error('Error fetching warehouse:', error);
+                message.error('Failed to fetch warehouse');
+            }
+        };
+        fetchData();
+    }, [])
+
+    const icons = [
+        { id: 1, icon: transistor},
+        { id: 2, icon: resistor },
+        { id: 3, icon: microchip },
+        { id: 4, icon: controller },
     ];
 
     return (
@@ -97,14 +115,14 @@ export default function MainPage() {
                         Our Warehouses
                     </Title>
                 </Col>
-                {categories.map((category) => (
-                    <Col key={category.id} xs={24} sm={12} md={6} style={{ padding: "16px" }}>
+                {wareStores.map((wareStore, index) => (
+                    <Col key={wareStore.id} xs={24} sm={12} md={6} style={{ padding: "16px" }}>
                         <Card
                             hoverable
                             cover={
                                 <img
-                                    alt={category.name}
-                                    src={category.icon}
+                                    alt={wareStore.name}
+                                    src={icons[index]?.icon}
                                     style={{ height: "150px", objectFit: "contain", borderRadius: "8px" }}
                                 />
                             }
@@ -117,10 +135,10 @@ export default function MainPage() {
                             }}
                             onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
                             onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-                            onClick={() => alert(`Navigate to ${category.name}`)}
+                            onClick={() => alert(`Navigate to ${wareStore.name}`)}
                         >
                             <Title level={4} style={{ fontSize: "20px", fontWeight: "bold", margin: "16px 0" }}>
-                                {category.name}
+                                {wareStore.name}
                             </Title>
                             <Button
                                 type="link"
