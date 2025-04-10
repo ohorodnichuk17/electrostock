@@ -15,7 +15,7 @@ export default function WarestoreCreatePage() {
         try {
             await apiClient.post('api/ware-store/create', data);
             message.success('Warestore created successfully');
-            navigate(-1);
+            navigate('/');
         } catch (error) {
             console.log('Warestore creation error: ', error);
             message.error('Warestore creation failed');
