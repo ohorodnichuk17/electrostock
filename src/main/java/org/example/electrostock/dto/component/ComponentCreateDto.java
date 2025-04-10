@@ -13,7 +13,6 @@ public class ComponentCreateDto {
     private String manufacturer;
     private String stockStatus;
     private String imageUrl;
-    private BigDecimal price;
     private int wareStoreId;
     private int userId;
 }

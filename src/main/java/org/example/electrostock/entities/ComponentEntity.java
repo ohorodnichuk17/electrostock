@@ -28,8 +28,6 @@ public class ComponentEntity {
     private String category;
     @Column(length = 100, nullable = false)
     private String manufacturer;
-    @Column(precision = 10, scale = 2, nullable = false)
-    private BigDecimal price;
     @Column(nullable = false)
     private int quantity;
     @Column(length = 500)

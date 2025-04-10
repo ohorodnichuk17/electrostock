@@ -128,9 +128,6 @@ public class ComponentController {
             if (dto.getStockStatus() != null) {
                 entity.setStockStatus(dto.getStockStatus());
             }
-            if (dto.getPrice() != null) {
-                entity.setPrice(dto.getPrice());
-            }
             if (dto.getImageUrl() != null) {
                 entity.setImageUrl(dto.getImageUrl());
             }
@@ -142,6 +139,22 @@ public class ComponentController {
         } catch(Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        ComponentEntity component = componentRepository.findById(id).orElse(null);
+        if(component == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try {
+            componentRepository.delete(component);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

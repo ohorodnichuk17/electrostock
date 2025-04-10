@@ -17,7 +17,6 @@ public class ComponentSerializer extends JsonSerializer<ComponentEntity> {
         gen.writeStringField("stockStatus", component.getStockStatus());
         gen.writeStringField("category", component.getCategory());
         gen.writeStringField("manufacturer", component.getManufacturer());
-        gen.writeNumberField("price", component.getPrice());
         gen.writeNumberField("quantity", component.getQuantity());
         gen.writeStringField("userId", String.valueOf(component.getUser().getId()));
         gen.writeEndObject();
