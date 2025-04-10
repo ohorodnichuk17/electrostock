@@ -5,7 +5,7 @@ import { logout } from "../../store/authentication/authentication.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { BackButton } from "../button/BackButton.tsx";
 import * as React from "react";
-import Logo from "../../assets/logo.png"
+import Logo from "../../assets/logo.png";
 
 const { Header } = Layout;
 
@@ -50,7 +50,6 @@ const DefaultHeader = () => {
                     Electro Stock
                 </div>
             </div>
-
 
             <Menu
                 theme="dark"
