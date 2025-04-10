@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/ware-store")
 @RequiredArgsConstructor
-@SecurityRequirement(name = "bearerAuth")
 public class WareStoreController {
     private final WareStoreRepository wareStoreRepository;
     private final WareStoreMapper wareStoreMapper;
@@ -55,6 +54,7 @@ public class WareStoreController {
     }
 
     @PostMapping("create")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<WareStoreItemDto> create(@RequestBody WareStoreCreateDto dto) {
         checkAuthentication();
         try {
@@ -69,6 +69,7 @@ public class WareStoreController {
     }
 
     @PutMapping("edit")
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<WareStoreItemDto> edit(@RequestBody WareStoreEditDto dto) {
         checkAuthentication();
         try {
@@ -80,6 +81,21 @@ public class WareStoreController {
             return new ResponseEntity<>(null, HttpStatus.CONFLICT);
         } catch (Exception ex) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        WareStoreEntity wareStore = wareStoreRepository.findById(id).orElse(null);
+        if(wareStore == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try {
+            wareStoreRepository.delete(wareStore);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
