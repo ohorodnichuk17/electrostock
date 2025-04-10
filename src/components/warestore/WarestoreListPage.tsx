@@ -16,8 +16,8 @@ const WarestoreListPage = () => {
                 const response = await apiClient.get<IWareStoreItem[]>('api/ware-store');
                 setWarestores(response.data);
             } catch (error) {
-                console.error('Error fetching ware stores:', error);
-                message.error('Failed to fetch ware stores');
+                console.error('Error fetching warehouse:', error);
+                message.error('Failed to fetch warehouse');
             }
         };
         fetchData();
@@ -27,10 +27,10 @@ const WarestoreListPage = () => {
         try {
             await apiClient.delete(`api/ware-store/${id}`);
             setWarestores(prev => prev.filter(item => item.id !== id));
-            message.success('Warestore deleted successfully');
+            message.success('Warehouse deleted successfully');
         } catch (error) {
-            console.error('Error deleting ware store:', error);
-            message.error('Failed to delete ware store');
+            console.error('Error deleting warehouse:', error);
+            message.error('Failed to delete warehouse');
         }
     };
 
@@ -41,7 +41,6 @@ const WarestoreListPage = () => {
             minHeight: '100vh',
             fontFamily: 'Arial, sans-serif'
         }}>
-            {/* Header Section */}
             <div style={{
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -54,10 +53,10 @@ const WarestoreListPage = () => {
                     fontWeight: 'bold',
                     margin: 0
                 }}>
-                    Warestore List
+                    Warehouse List
                 </h1>
                 {isSupplier && (
-                    <Link to="/warestore/create">
+                    <Link to="/warehouse/create">
                         <Button
                             type="primary"
                             icon={<PlusOutlined />}
@@ -74,13 +73,12 @@ const WarestoreListPage = () => {
                                 e.currentTarget.style.backgroundColor = '#C39964';
                             }}
                         >
-                            Create Warestore
+                            Create Warehouse
                         </Button>
                     </Link>
                 )}
             </div>
 
-            {/* Content Section */}
             {warestores.length === 0 ? (
                 <Empty
                     description={<span style={{ color: '#555' }}>No warehouses available</span>}
@@ -138,7 +136,7 @@ const WarestoreListPage = () => {
                                         display: 'flex',
                                         gap: '10px'
                                     }}>
-                                        <Link to={`/warestore/edit/${warestore.id}`}>
+                                        <Link to={`/warehouse/edit/${warestore.id}`}>
                                             <Button
                                                 icon={<EditOutlined />}
                                                 type="primary"

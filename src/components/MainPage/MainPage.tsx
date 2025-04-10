@@ -94,7 +94,7 @@ export default function MainPage() {
             >
                 <Col span={24}>
                     <Title level={2} style={{ textAlign: "center", marginBottom: "48px", fontWeight: "600" }}>
-                        Browse by Category
+                        Our Warehouses
                     </Title>
                 </Col>
                 {categories.map((category) => (

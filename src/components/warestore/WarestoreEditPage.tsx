@@ -19,8 +19,8 @@ export default function WarestoreEditPage() {
                 const response = await apiClient.get(`api/ware-store/${id}`);
                 form.setFieldsValue({ name: response.data?.name });
             } catch (error) {
-                console.error('Error fetching warestore:', error);
-                message.error('Failed to fetch warestore');
+                console.error('Error fetching warehouse:', error);
+                message.error('Failed to fetch warehouse');
             } finally {
                 setLoading(false);
             }
@@ -33,11 +33,11 @@ export default function WarestoreEditPage() {
         const data = { ...values, id };
         try {
             await apiClient.put('api/ware-store/edit', data);
-            navigate('/warestores');
-            message.success('Warestore updated successfully');
+            navigate('/warehouses');
+            message.success('Warehouse updated successfully');
         } catch (error) {
-            console.error('Error updating warestore:', error);
-            message.error('Failed to update warestore');
+            console.error('Error updating warehouse:', error);
+            message.error('Failed to update warehouse');
         } finally {
             setLoading(false);
         }
@@ -66,7 +66,7 @@ export default function WarestoreEditPage() {
                         fontSize: '18px',
                         fontWeight: 'bold'
                     }}>
-                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to edit a warestore!
+                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to edit a warehouse!
                     </div>
                 ) : (
                     <>
@@ -77,7 +77,7 @@ export default function WarestoreEditPage() {
                             marginBottom: '20px',
                             textAlign: 'center'
                         }}>
-                            Edit Warestore
+                            Edit Warehouse
                         </h1>
                         <Form
                             form={form}
@@ -92,10 +92,10 @@ export default function WarestoreEditPage() {
                             <Form.Item
                                 label={<span style={{ color: '#333', fontWeight: 'bold' }}>Name</span>}
                                 name="name"
-                                rules={[{ required: true, message: 'Please enter warestore name!' }]}
+                                rules={[{ required: true, message: 'Please enter warehouse name!' }]}
                             >
                                 <Input
-                                    placeholder="Enter warestore name"
+                                    placeholder="Enter warehouse name"
                                     style={{
                                         height: '45px',
                                         borderRadius: '8px',

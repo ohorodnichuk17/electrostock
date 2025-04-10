@@ -14,11 +14,11 @@ export default function WarestoreCreatePage() {
         setLoading(true);
         try {
             await apiClient.post('api/ware-store/create', data);
-            message.success('Warestore created successfully');
-            navigate('/warestores');
+            message.success('Warehouse created successfully');
+            navigate('/warehouses');
         } catch (error) {
-            console.log('Warestore creation error: ', error);
-            message.error('Warestore creation failed');
+            console.log('Warehouse creation error: ', error);
+            message.error('Warehouse creation failed');
         } finally {
             setLoading(false);
         }
@@ -47,7 +47,7 @@ export default function WarestoreCreatePage() {
                         fontSize: '18px',
                         fontWeight: 'bold'
                     }}>
-                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to create a warestore!
+                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to create a warehouse!
                     </div>
                 ) : (
                     <>
@@ -58,7 +58,7 @@ export default function WarestoreCreatePage() {
                             marginBottom: '20px',
                             textAlign: 'center'
                         }}>
-                            Create Warestore
+                            Create Warehouse
                         </h1>
                         <Form
                             layout="vertical"

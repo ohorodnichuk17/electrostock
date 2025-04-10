@@ -19,9 +19,9 @@ function App() {
             <Route path="login" element={<LoginPage />}/>
             <Route path="register-success" element={<RegisterSuccessPage />} />
 
-            <Route path="warestores" element={<WarestoreListPage/>}/>
-            <Route path="warestore/create" element={<WarestoreCreatePage />} />
-            <Route path="warestore/edit/:id" element={<WarestoreEditPage />} />
+            <Route path="warehouses" element={<WarestoreListPage/>}/>
+            <Route path="warehouse/create" element={<WarestoreCreatePage />} />
+            <Route path="warehouse/edit/:id" element={<WarestoreEditPage />} />
         </Route>
       </Routes>
     </>
