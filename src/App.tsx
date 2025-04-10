@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from 'react'
 import {Route, Routes} from "react-router-dom";
 import DefaultLayout from "./components/containers/DefaultLayout.tsx";
 import RegisterPage from "./components/authentication/RegisterPage.tsx";
@@ -11,8 +10,6 @@ import WarestoreListPage from "./components/warestore/WarestoreListPage.tsx";
 import WarestoreEditPage from "./components/warestore/WarestoreEditPage.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
       <Routes>
@@ -28,7 +25,7 @@ function App() {
         </Route>
       </Routes>
     </>
-  )
+  );
 }
 
 export default App

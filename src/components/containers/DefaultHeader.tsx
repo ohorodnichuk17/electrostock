@@ -22,7 +22,6 @@ const DefaultHeader = () => {
     const menuItems = [
         { key: 'home', label: 'Home', path: '/' },
         { key: 'warestore', label: 'Warestore', path: '/warestores' },
-        { key: 'about', label: 'About', path: '/about' },
     ];
 
     return (
