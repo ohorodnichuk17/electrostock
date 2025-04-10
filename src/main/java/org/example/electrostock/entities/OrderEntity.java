@@ -18,11 +18,9 @@ public class OrderEntity {
     @Column(nullable = false)
     private LocalDateTime orderDate;
     @Column(nullable = false)
-    private double totalAmount;
+    private LocalDateTime returnDate;
     @Column(length = 100, nullable = false)
     private String status;
-    @Column(length = 100, nullable = false)
-    private String paymentStatus;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
