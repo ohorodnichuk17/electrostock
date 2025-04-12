@@ -9,6 +9,11 @@ import WarestoreCreatePage from "./components/warestore/supplier/WarestoreCreate
 import WarestoreListPage from "./components/warestore/supplier/WarestoreListPage.tsx";
 import WarestoreEditPage from "./components/warestore/supplier/WarestoreEditPage.tsx";
 import { useAppSelector } from "./hooks/redux";
+import ComponentCard from "./components/component/ComponentCard.tsx";
+import TransistorWarestore from "./components/warestore/TransistorWarestore.tsx";
+import ResistorWarestore from "./components/warestore/ResistorWarestore.tsx";
+import ControllerWarestore from "./components/warestore/ControllerWarestore.tsx";
+import MicrochipWarestore from "./components/warestore/MicrochipWarestore.tsx";
 
 function App() {
     const { isSupplier } = useAppSelector(state => state.authentication); // Отримуємо статус користувача (якщо він постачальник)
@@ -21,6 +26,10 @@ function App() {
                     <Route path="register" element={<RegisterPage />} />
                     <Route path="login" element={<LoginPage />} />
                     <Route path="register-success" element={<RegisterSuccessPage />} />
+                    <Route path="warehouse/transistors" element={<TransistorWarestore />} />
+                    <Route path="warehouse/resistors" element={<ResistorWarestore />} />
+                    <Route path="warehouse/controllers" element={<ControllerWarestore />} />
+                    <Route path="warehouse/microchips" element={<MicrochipWarestore />} />
 
                     {isSupplier ? (
                         <>

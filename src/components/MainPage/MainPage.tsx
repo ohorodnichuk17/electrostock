@@ -137,7 +137,7 @@ export default function MainPage() {
                             }}
                             onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
                             onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-                            onClick={() => navigate(wareStore.name)}
+                            onClick={() => navigate("/warehouse/" + wareStore.name)}
                         >
                             <Title level={4} style={{ fontSize: "20px", fontWeight: "bold", margin: "16px 0" }}>
                                 {wareStore.name}

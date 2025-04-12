@@ -4,7 +4,6 @@ export interface IComponentItem {
     name: string;
     description: string;
     category: string;
-    manufacturer: string;
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
@@ -16,7 +15,6 @@ export interface IComponentCreate {
     name: string;
     description: string;
     category: string;
-    manufacturer: string;
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
@@ -29,7 +27,6 @@ export interface IComponentEdit {
     name: string;
     description: string;
     category: string;
-    manufacturer: string;
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
