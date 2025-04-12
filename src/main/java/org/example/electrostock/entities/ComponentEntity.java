@@ -37,10 +37,6 @@ public class ComponentEntity {
     @Column(length = 500)
     private String imageUrl;
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private UserEntity user;
-    @ManyToOne
     @JoinColumn(name = "ware_store_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private WareStoreEntity wareStore;

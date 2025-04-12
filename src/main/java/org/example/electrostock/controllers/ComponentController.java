@@ -7,9 +7,12 @@ import org.example.electrostock.dto.component.ComponentCreateDto;
 import org.example.electrostock.dto.component.ComponentEditDto;
 import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.entities.ComponentEntity;
+import org.example.electrostock.entities.WareStoreEntity;
 import org.example.electrostock.exceptions.UnauthorizedException;
 import org.example.electrostock.mapper.ComponentMapper;
 import org.example.electrostock.repositories.ComponentRepository;
+import org.example.electrostock.repositories.UserRepository;
+import org.example.electrostock.repositories.WareStoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,12 +29,15 @@ import java.util.stream.Collectors;
 public class ComponentController {
     private final ComponentRepository componentRepository;
     private final ComponentMapper componentMapper;
+    private final WareStoreRepository wareStoreRepository;
 
     @Autowired
     public ComponentController(ComponentRepository componentRepository,
-                               ComponentMapper componentMapper) {
+                               ComponentMapper componentMapper,
+                               WareStoreRepository wareStoreRepository) {
         this.componentRepository = componentRepository;
         this.componentMapper = componentMapper;
+        this.wareStoreRepository = wareStoreRepository;
     }
 
     private void checkuthrorization() {
@@ -65,17 +71,28 @@ public class ComponentController {
     public ResponseEntity<ComponentItemDto> create(@RequestBody ComponentCreateDto dto) {
         checkuthrorization();
         try {
+            if (dto.getWareStoreId() == 0) {
+                return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            }
+
+            WareStoreEntity wareStore = wareStoreRepository.findById(dto.getWareStoreId())
+                    .orElseThrow(() -> new RuntimeException("Warehouse with ID " + dto.getWareStoreId() + " not found"));
+
             ComponentEntity entity = componentMapper.createDtoEntity(dto);
+            entity.setWareStore(wareStore);
+
             if (dto.getCategory() != null && !isValidCategory(dto.getCategory())) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
             if (dto.getStockStatus() != null && !isValidStockStatus(dto.getStockStatus())) {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
+
             componentRepository.save(entity);
+
             ComponentItemDto response = componentMapper.componentItemDto(entity);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

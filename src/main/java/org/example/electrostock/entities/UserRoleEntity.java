@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @IdClass(UserRolePK.class)
 public class UserRoleEntity {
     @Id
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name="user_id", nullable = false)
     private UserEntity user;
     @Id

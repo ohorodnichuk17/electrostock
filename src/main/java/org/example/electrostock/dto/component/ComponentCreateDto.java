@@ -13,5 +13,4 @@ public class ComponentCreateDto {
     private String stockStatus;
     private String imageUrl;
     private int wareStoreId;
-    private int userId;
 }

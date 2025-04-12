@@ -27,7 +27,5 @@ public class UserEntity {
     @Column(length = 200, nullable = false)
     private String password;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<ComponentEntity> components;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     private List<OrderEntity> orders;
 }
