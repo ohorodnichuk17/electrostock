@@ -14,9 +14,8 @@ function isRejectedAction(action: AnyAction): action is RejectedAction {
 const updateUserState = (state: IAuthenticationState, token: string): void => {
     const {name, email, roles} = jwtDecode<IUser>(token);
 
-    if(roles.includes('supplier')) {
-        state.isSupplier = true;
-    }
+    state.isSupplier = roles.includes('supplier');
+
     state.user = {
         name,
         email,

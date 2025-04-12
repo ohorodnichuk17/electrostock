@@ -1,6 +1,10 @@
-import { Col, Row, Card, Tag } from 'antd';
-import { Link } from 'react-router-dom';
+import {Col, Row, Card, Tag, Button, message} from 'antd';
+import {Link, useNavigate} from 'react-router-dom';
 import { IComponentItem } from '../../interfaces/component';
+import {useAppSelector} from "../../hooks/redux";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {apiClient} from "../../utils/api/apiClient.ts";
+import {useState} from "react";
 
 interface Props {
     components: IComponentItem[];
@@ -26,6 +30,22 @@ const getStockStatusColor = (status: string) => {
 };
 
 export default function ComponentList({ components }: Props) {
+    const { isSupplier } = useAppSelector(state => state.authentication);
+    const [componentList, setComponentList] = useState<IComponentItem[]>([]);
+    const navigate = useNavigate();
+
+    const handleDelete = async (id: number) => {
+        try {
+            await apiClient.delete(`api/component/${id}`);
+            setComponentList(prev => prev.filter(item => item.id !== id));
+            message.success('Component deleted successfully');
+            navigate('/components');
+        } catch (error) {
+            console.error('Error deleting component:', error);
+            message.error('Failed to delete component');
+        }
+    }
+
     return (
         <Row gutter={[16, 16]} style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
             {components.length === 0 ? (
@@ -90,6 +110,51 @@ export default function ComponentList({ components }: Props) {
                                     <Tag color={getStockStatusColor(component.stockStatus)} style={{ fontSize: '12px' }}>
                                         {component.stockStatus}
                                     </Tag>
+                                    {isSupplier && (
+                                        <div style={{ marginTop: '12px' }}>
+                                            <Link to={`/component/edit/${component.id}`}>
+                                                <Button
+                                                    icon={<EditOutlined />}
+                                                    type="primary"
+                                                    style={{
+                                                        borderColor: '#C39964',
+                                                        color: '#fff',
+                                                        backgroundColor: '#C39964',
+                                                        transition: 'all 0.3s ease',
+                                                        marginRight: '15px',
+                                                        }}
+                                                    onMouseEnter={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#B88C56';
+                                                    }}
+                                                    onMouseLeave={(e) => {
+                                                        e.currentTarget.style.backgroundColor = '#C39964';
+                                                    }}
+                                                >
+                                                    Edit
+                                                </Button>
+                                            </Link>
+
+                                            <Button
+                                                onClick={() => handleDelete(component.id)}
+                                                icon={<DeleteOutlined />}
+                                                danger
+                                                style={{
+                                                    borderColor: '#ff4d4f',
+                                                    color: '#fff',
+                                                    backgroundColor: '#ff4d4f',
+                                                    transition: 'all 0.3s ease',
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.currentTarget.style.backgroundColor = '#e53e3e';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.currentTarget.style.backgroundColor = '#ff4d4f';
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </div>
+                                    )}
                                 </div>
                             </Link>
                         </Card>

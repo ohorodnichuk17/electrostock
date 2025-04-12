@@ -13,9 +13,12 @@ import TransistorWarestore from "./components/warestore/TransistorWarestore.tsx"
 import ResistorWarestore from "./components/warestore/ResistorWarestore.tsx";
 import ControllerWarestore from "./components/warestore/ControllerWarestore.tsx";
 import MicrochipWarestore from "./components/warestore/MicrochipWarestore.tsx";
+import ComponentCreatePage from "./components/component/supplier/ComponentCreatePage.tsx";
+import ComponentListPage from "./components/component/supplier/ComponentListPage.tsx";
+import ComponentEditPage from "./components/component/supplier/ComponentEditPage.tsx";
 
 function App() {
-    const { isSupplier } = useAppSelector(state => state.authentication); // Отримуємо статус користувача (якщо він постачальник)
+    const { isSupplier } = useAppSelector(state => state.authentication);
 
     return (
         <>
@@ -35,12 +38,18 @@ function App() {
                             <Route path="warehouses" element={<WarestoreListPage />} />
                             <Route path="warehouse/create" element={<WarestoreCreatePage />} />
                             <Route path="warehouse/edit/:id" element={<WarestoreEditPage />} />
+                            <Route path="component/create" element={<ComponentCreatePage />} />
+                            <Route path="components" element={<ComponentListPage/>}/>
+                            <Route path="component/edit/:id" element={<ComponentEditPage />} />
                         </>
                     ) : (
                         <>
                             <Route path="warehouses" element={<Navigate to="/" />} />
                             <Route path="warehouse/create" element={<Navigate to="/" />} />
                             <Route path="warehouse/edit/:id" element={<Navigate to="/" />} />
+                            <Route path="component/create" element={<Navigate to="/" />} />
+                            <Route path="components" element={ <Navigate to="/" />} />
+                            <Route path="component/edit/:id" element={<Navigate to="/" />} />
                         </>
                     )}
                 </Route>

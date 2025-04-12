@@ -22,8 +22,12 @@ const DefaultHeader = () => {
         { key: 'home', label: 'Home', path: '/' },
     ];
 
+    console.log("isSupplier:", isSupplier, "user:", user);
+
+
     if (isSupplier) {
         menuItems.push({ key: 'warestore', label: 'Warehouse', path: '/warehouses' });
+        menuItems.push({ key: 'component', label: 'Component', path: '/components' });
     }
 
     return (

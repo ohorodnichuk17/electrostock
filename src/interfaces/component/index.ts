@@ -7,7 +7,6 @@ export interface IComponentItem {
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
-    userId: number;
 }
 
 export interface IComponentCreate {
@@ -18,7 +17,6 @@ export interface IComponentCreate {
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
-    userId: number;
 }
 
 export interface IComponentEdit {
@@ -30,5 +28,4 @@ export interface IComponentEdit {
     stockStatus: string;
     imageUrl: string;
     wareStoreId: number;
-    userId: number;
 }
