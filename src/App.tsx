@@ -9,7 +9,6 @@ import WarestoreCreatePage from "./components/warestore/supplier/WarestoreCreate
 import WarestoreListPage from "./components/warestore/supplier/WarestoreListPage.tsx";
 import WarestoreEditPage from "./components/warestore/supplier/WarestoreEditPage.tsx";
 import { useAppSelector } from "./hooks/redux";
-import ComponentCard from "./components/component/ComponentCard.tsx";
 import TransistorWarestore from "./components/warestore/TransistorWarestore.tsx";
 import ResistorWarestore from "./components/warestore/ResistorWarestore.tsx";
 import ControllerWarestore from "./components/warestore/ControllerWarestore.tsx";
