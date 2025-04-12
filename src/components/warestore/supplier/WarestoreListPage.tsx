@@ -1,8 +1,8 @@
 import { Button, Col, Empty, Row, message } from 'antd';
 import { useEffect, useState } from "react";
-import { IWareStoreItem } from "../../interfaces/warestore";
-import { useAppSelector } from "../../hooks/redux";
-import { apiClient } from "../../utils/api/apiClient.ts";
+import { IWareStoreItem } from "../../../interfaces/warestore";
+import { useAppSelector } from "../../../hooks/redux";
+import { apiClient } from "../../../utils/api/apiClient.ts";
 import { Link } from "react-router-dom";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 

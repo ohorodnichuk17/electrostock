@@ -5,9 +5,9 @@ import RegisterPage from "./components/authentication/RegisterPage.tsx";
 import LoginPage from "./components/authentication/LoginPage.tsx";
 import RegisterSuccessPage from "./components/authentication/RegisterSuccessPage.tsx";
 import MainPage from "./components/MainPage/MainPage.tsx";
-import WarestoreCreatePage from "./components/warestore/WarestoreCreatePage.tsx";
-import WarestoreListPage from "./components/warestore/WarestoreListPage.tsx";
-import WarestoreEditPage from "./components/warestore/WarestoreEditPage.tsx";
+import WarestoreCreatePage from "./components/warestore/supplier/WarestoreCreatePage.tsx";
+import WarestoreListPage from "./components/warestore/supplier/WarestoreListPage.tsx";
+import WarestoreEditPage from "./components/warestore/supplier/WarestoreEditPage.tsx";
 import { useAppSelector } from "./hooks/redux";
 
 function App() {

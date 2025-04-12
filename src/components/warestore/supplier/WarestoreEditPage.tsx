@@ -1,28 +1,47 @@
-import { useState } from "react";
-import { useAppSelector } from "../../hooks/redux";
-import { useNavigate } from "react-router-dom";
-import { IWareStoreCreate } from "../../interfaces/warestore";
-import { apiClient } from "../../utils/api/apiClient.ts";
+import {useEffect, useState} from "react";
+import { useAppSelector } from "../../../hooks/redux";
+import {useNavigate, useParams} from "react-router-dom";
+import { IWareStoreEdit} from "../../../interfaces/warestore";
+import { apiClient } from "../../../utils/api/apiClient.ts";
 import { Button, Form, Input, message } from "antd";
 
-export default function WarestoreCreatePage() {
+export default function WarestoreEditPage() {
+    const { id } = useParams();
     const [loading, setLoading] = useState(false);
     const { isSupplier } = useAppSelector(state => state.authentication);
+    const [form] = Form.useForm();
     const navigate = useNavigate();
 
-    const onFinish = async (data: IWareStoreCreate) => {
+    useEffect(() => {
+        const fetchWarestore = async () => {
+            setLoading(true);
+            try {
+                const response = await apiClient.get(`api/ware-store/${id}`);
+                form.setFieldsValue({ name: response.data?.name });
+            } catch (error) {
+                console.error('Error fetching warehouse:', error);
+                message.error('Failed to fetch warehouse');
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchWarestore();
+    }, [id]);
+
+    const onFinish = async (values: IWareStoreEdit) => {
         setLoading(true);
+        const data = { ...values, id };
         try {
-            await apiClient.post('api/ware-store/create', data);
-            message.success('Warehouse created successfully');
+            await apiClient.put('api/ware-store/edit', data);
             navigate('/warehouses');
+            message.success('Warehouse updated successfully');
         } catch (error) {
-            console.log('Warehouse creation error: ', error);
-            message.error('Warehouse creation failed');
+            console.error('Error updating warehouse:', error);
+            message.error('Failed to update warehouse');
         } finally {
             setLoading(false);
         }
-    };
+    }
 
     return (
         <div style={{
@@ -47,7 +66,7 @@ export default function WarestoreCreatePage() {
                         fontSize: '18px',
                         fontWeight: 'bold'
                     }}>
-                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to create a warehouse!
+                        You must be a <span style={{ color: '#C39964' }}>supplier</span> to edit a warehouse!
                     </div>
                 ) : (
                     <>
@@ -58,9 +77,10 @@ export default function WarestoreCreatePage() {
                             marginBottom: '20px',
                             textAlign: 'center'
                         }}>
-                            Create Warehouse
+                            Edit Warehouse
                         </h1>
                         <Form
+                            form={form}
                             layout="vertical"
                             onFinish={onFinish}
                             style={{
@@ -72,10 +92,10 @@ export default function WarestoreCreatePage() {
                             <Form.Item
                                 label={<span style={{ color: '#333', fontWeight: 'bold' }}>Name</span>}
                                 name="name"
-                                rules={[{ required: true, message: 'Please enter warestore name!' }]}
+                                rules={[{ required: true, message: 'Please enter warehouse name!' }]}
                             >
                                 <Input
-                                    placeholder="Enter warestore name"
+                                    placeholder="Enter warehouse name"
                                     style={{
                                         height: '45px',
                                         borderRadius: '8px',
