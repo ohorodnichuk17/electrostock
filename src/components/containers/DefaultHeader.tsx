@@ -3,7 +3,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { UserOutlined, PoweroffOutlined, UserAddOutlined } from '@ant-design/icons';
 import { logout } from "../../store/authentication/authentication.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { BackButton } from "../button/BackButton.tsx";
 import * as React from "react";
 import Logo from "../../assets/logo.png";
 
@@ -12,7 +11,7 @@ const { Header } = Layout;
 const DefaultHeader = () => {
     const dispatch = useAppDispatch();
     const location = useLocation();
-
+    const { isSupplier } = useAppSelector(state => state.authentication);
     const { isLogin, user } = useAppSelector(state => state.authentication);
 
     const handleLogout = () => {
@@ -21,8 +20,11 @@ const DefaultHeader = () => {
 
     const menuItems = [
         { key: 'home', label: 'Home', path: '/' },
-        { key: 'warestore', label: 'Warehouse', path: '/warehouses' },
     ];
+
+    if (isSupplier) {
+        menuItems.push({ key: 'warestore', label: 'Warehouse', path: '/warehouses' });
+    }
 
     return (
         <Header style={{

@@ -9,11 +9,13 @@ import microchip from "../../assets/microchip.png";
 import {IWareStoreItem} from "../../interfaces/warestore";
 import {useEffect} from "react";
 import {apiClient} from "../../utils/api/apiClient.ts";
+import {useNavigate} from "react-router-dom";
 
 const { Title, Text } = Typography;
 
 export default function MainPage() {
     const [wareStores, setWareStores] = React.useState<IWareStoreItem[]>([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -135,7 +137,7 @@ export default function MainPage() {
                             }}
                             onMouseEnter={(e) => e.currentTarget.style.transform = "scale(1.05)"}
                             onMouseLeave={(e) => e.currentTarget.style.transform = "scale(1)"}
-                            onClick={() => alert(`Navigate to ${wareStore.name}`)}
+                            onClick={() => navigate(wareStore.name)}
                         >
                             <Title level={4} style={{ fontSize: "20px", fontWeight: "bold", margin: "16px 0" }}>
                                 {wareStore.name}
