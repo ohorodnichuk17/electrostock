@@ -10,7 +10,6 @@ public class ComponentCreateDto {
     private String name;
     private String description;
     private String category;
-    private String manufacturer;
     private String stockStatus;
     private String imageUrl;
     private int wareStoreId;

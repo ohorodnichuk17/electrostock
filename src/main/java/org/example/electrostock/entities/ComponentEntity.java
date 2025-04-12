@@ -2,7 +2,10 @@ package org.example.electrostock.entities;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.example.electrostock.serializer.ComponentSerializer;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -11,6 +14,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="tbl_components")
 @JsonSerialize(using = ComponentSerializer.class)
@@ -26,8 +32,6 @@ public class ComponentEntity {
     private String stockStatus;
     @Column(length = 100, nullable = false)
     private String category;
-    @Column(length = 100, nullable = false)
-    private String manufacturer;
     @Column(nullable = false)
     private int quantity;
     @Column(length = 500)

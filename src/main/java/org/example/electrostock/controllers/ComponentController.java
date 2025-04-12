@@ -122,9 +122,6 @@ public class ComponentController {
             if (dto.getCategory() != null) {
                 entity.setCategory(dto.getCategory());
             }
-            if (dto.getManufacturer() != null) {
-                entity.setManufacturer(dto.getManufacturer());
-            }
             if (dto.getStockStatus() != null) {
                 entity.setStockStatus(dto.getStockStatus());
             }
@@ -159,9 +156,10 @@ public class ComponentController {
     }
 
     private boolean isValidCategory(String category) {
-        return category.equals(Category.Chip) ||
+        return category.equals(Category.Microchip) ||
                 category.equals(Category.Resistor) ||
-                category.equals(Category.Transistor);
+                category.equals(Category.Transistor) ||
+                category.equals(Category.Controller);
     }
 
     private boolean isValidStockStatus(String stockStatus) {
