@@ -58,6 +58,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/component/create").hasAnyAuthority(Roles.Supplier)
                         .requestMatchers("/api/component").permitAll()
                         .requestMatchers("/api/component/{componentId}").permitAll()
+                        .requestMatchers("/api/order/**").hasAnyAuthority(Roles.Supplier, Roles.User)
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(it -> it.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

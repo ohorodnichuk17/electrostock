@@ -1,8 +1,8 @@
 package org.example.electrostock.dto.warestore;
 
 import lombok.Data;
-import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.entities.ComponentEntity;
+//import org.example.electrostock.entities.ComponentEntity;
 
 import java.util.List;
 

@@ -6,7 +6,6 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
 @Entity
@@ -27,11 +26,15 @@ public class OrderEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private UserEntity user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_components",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "component_id")
-    )
-    private List<ComponentEntity> components;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "order_components",
+//            joinColumns = @JoinColumn(name = "order_id"),
+//            inverseJoinColumns = @JoinColumn(name = "component_id")
+//    )
+//    private List<ComponentEntity> components;
+    @ManyToOne
+    @JoinColumn(name = "component_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ComponentEntity component;
 }

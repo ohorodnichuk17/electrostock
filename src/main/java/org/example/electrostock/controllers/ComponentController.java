@@ -11,7 +11,6 @@ import org.example.electrostock.entities.WareStoreEntity;
 import org.example.electrostock.exceptions.UnauthorizedException;
 import org.example.electrostock.mapper.ComponentMapper;
 import org.example.electrostock.repositories.ComponentRepository;
-import org.example.electrostock.repositories.UserRepository;
 import org.example.electrostock.repositories.WareStoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

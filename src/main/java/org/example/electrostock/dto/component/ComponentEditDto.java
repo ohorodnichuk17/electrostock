@@ -1,10 +1,6 @@
 package org.example.electrostock.dto.component;
 
 import lombok.Data;
-import org.example.electrostock.entities.UserEntity;
-import org.example.electrostock.entities.WareStoreEntity;
-
-import java.math.BigDecimal;
 
 @Data
 public class ComponentEditDto {
