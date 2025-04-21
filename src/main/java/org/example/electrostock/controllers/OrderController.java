@@ -2,6 +2,7 @@ package org.example.electrostock.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.example.electrostock.constants.Status;
+import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.dto.order.OrderCreateDto;
 import org.example.electrostock.dto.order.OrderItemDto;
 import org.example.electrostock.entities.ComponentEntity;
@@ -95,6 +96,18 @@ public class OrderController {
                 .map(orderMapper::orderItemDto)
                 .collect(Collectors.toList());
         return new ResponseEntity<>(orders, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{orderId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<OrderItemDto> index(@PathVariable int orderId) {
+        checkAuth();
+        var entity = orderRepository.findById(orderId).orElse(null);
+        if (entity == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        var result =  orderMapper.orderItemDto(entity);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     private boolean isValidStatus(String status) {

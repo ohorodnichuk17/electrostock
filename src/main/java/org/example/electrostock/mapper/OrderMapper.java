@@ -12,6 +12,7 @@ import java.util.List;
 public interface OrderMapper {
     @Mapping(source = "component.id", target = "componentId")
     @Mapping(source = "user.id", target = "userId")
+    @Mapping(source = "id", target = "id")
     OrderItemDto orderItemDto(OrderEntity entity);
     List<OrderItemDto> orderEntitiesToDtos(List<OrderEntity> entities);
 

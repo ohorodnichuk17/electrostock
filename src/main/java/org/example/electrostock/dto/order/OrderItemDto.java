@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class OrderItemDto {
+    private int id;
     private LocalDateTime orderDate;
     private LocalDateTime returnDate;
     private String status;
