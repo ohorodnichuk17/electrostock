@@ -110,6 +110,22 @@ public class OrderController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+
+    @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<Void> delete(@PathVariable int id) {
+        OrderEntity order = orderRepository.findById(id).orElse(null);
+        if(order == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try {
+            orderRepository.delete(order);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch(Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     private boolean isValidStatus(String status) {
         return status.equals(Status.Confirmed) ||
                 status.equals(Status.Delivered) ||
