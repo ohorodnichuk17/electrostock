@@ -53,8 +53,28 @@ public class DatabaseSeeder {
         }
     }
 
+//    private void seedSuppliers() {
+//        if(userRepository.count() == 0) {
+//            var user = UserEntity
+//                    .builder()
+//                    .email("supplier@gmail.com")
+//                    .firstName("Supplier")
+//                    .lastName("Supplier")
+//                    .password(passwordEncoder.encode("123456"))
+//                    .build();
+//            userRepository.save(user);
+//            var role = roleRepository.findByName(Roles.Supplier);
+//            var ur = UserRoleEntity
+//                    .builder()
+//                    .role(role)
+//                    .user(user)
+//                    .build();
+//            userRoleRepository.save(ur);
+//        }
+//    }
+
     private void seedSuppliers() {
-        if(userRepository.count() == 0) {
+        if (userRepository.count() == 0) {
             var user = UserEntity
                     .builder()
                     .email("supplier@gmail.com")
@@ -62,7 +82,7 @@ public class DatabaseSeeder {
                     .lastName("Supplier")
                     .password(passwordEncoder.encode("123456"))
                     .build();
-            userRepository.save(user);
+            user = userRepository.saveAndFlush(user);
             var role = roleRepository.findByName(Roles.Supplier);
             var ur = UserRoleEntity
                     .builder()
