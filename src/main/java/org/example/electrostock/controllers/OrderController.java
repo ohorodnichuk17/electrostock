@@ -80,9 +80,13 @@ public class OrderController {
 
             orderRepository.save(order);
 
+            System.out.println("Received DTO: " + dto);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            System.out.println("Authenticated user: " + auth.getName());
             OrderItemDto response = orderMapper.orderItemDto(order);
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
     }
