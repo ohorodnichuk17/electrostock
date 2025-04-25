@@ -62,9 +62,15 @@ export const getAllOrders = createAsyncThunk<
     "order/get-all-orders",
     async (_, {rejectWithValue}) => {
         try {
+            const token = localStorage.getItem("authToken");
             const response = await apiClient.get("api/order", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
                 withCredentials: true,
             });
+            console.log("getAllOrders response:", response.data);
+
             return response.data;
         } catch (err: any) {
             return rejectWithValue(err.response.data);

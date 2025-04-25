@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button, Modal, message, List, Card } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { RootState } from "../../store";
-import {createOrder} from "../../store/order/order.action.ts";
+import {createOrder, getAllOrders} from "../../store/order/order.action.ts";
 import moment from "moment";
 
 const CreateOrderPage: React.FC = () => {
@@ -34,7 +34,6 @@ const CreateOrderPage: React.FC = () => {
         const orderData = {
             orderDate: moment().format("YYYY-MM-DDTHH:mm:ss"),
             returnDate: `${values.returnDate}T00:00:00`,
-            status: "in processing",
             componentId: cartItems.length === 1 ? cartItems[0].id : null,
             userId: Number(user.id),
         };
