@@ -4,7 +4,6 @@ import {IAuthenticationState, IUser} from "../../interfaces/authentication";
 import {jwtDecode} from "jwt-decode";
 import {addLocalStorage, deleteLocalStorage} from "../../utils/storage/localStorageUtils";
 import {Status} from "../../utils/enums";
-import {act} from "react";
 import {login, register} from "./authentication.action";
 
 function isRejectedAction(action: AnyAction): action is RejectedAction {
@@ -12,11 +11,13 @@ function isRejectedAction(action: AnyAction): action is RejectedAction {
 }
 
 const updateUserState = (state: IAuthenticationState, token: string): void => {
-    const {name, email, roles} = jwtDecode<IUser>(token);
+    const { sub, name, email, roles } = jwtDecode<IUser>(token);
+    console.log("Decoded JWT:", { sub, name, email, roles });
 
     state.isSupplier = roles.includes('supplier');
 
     state.user = {
+        id: sub.split(',')[0],  // Використовуємо першу частину sub як id
         name,
         email,
         roles,
@@ -26,6 +27,7 @@ const updateUserState = (state: IAuthenticationState, token: string): void => {
 
     addLocalStorage('authToken', token);
 };
+
 
 const initialState: IAuthenticationState = {
     user: null,

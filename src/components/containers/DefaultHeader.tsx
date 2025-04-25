@@ -1,6 +1,6 @@
-import { Button, Image, Layout, Menu } from 'antd';
+import {Badge, Button, Image, Layout, Menu} from 'antd';
 import { Link, useLocation } from 'react-router-dom';
-import { UserOutlined, PoweroffOutlined, UserAddOutlined } from '@ant-design/icons';
+import {UserOutlined, PoweroffOutlined, UserAddOutlined, ShoppingCartOutlined} from '@ant-design/icons';
 import { logout } from "../../store/authentication/authentication.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import * as React from "react";
@@ -13,6 +13,7 @@ const DefaultHeader = () => {
     const location = useLocation();
     const { isSupplier } = useAppSelector(state => state.authentication);
     const { isLogin, user } = useAppSelector(state => state.authentication);
+    const { cartItems } = useAppSelector(state => state.cart);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -164,6 +165,13 @@ const DefaultHeader = () => {
                     </Link>
                 </div>
             )}
+            <Link to="/create-order">
+                <Badge count={cartItems.length} overflowCount={99}>
+                    <Button type="text" icon={<ShoppingCartOutlined />} style={{ color: '#fff' }}>
+                        Cart
+                    </Button>
+                </Badge>
+            </Link>
         </Header>
     );
 };

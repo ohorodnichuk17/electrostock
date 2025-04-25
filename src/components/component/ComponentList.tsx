@@ -1,10 +1,11 @@
 import {Col, Row, Card, Tag, Button, message} from 'antd';
 import {Link, useNavigate} from 'react-router-dom';
 import { IComponentItem } from '../../interfaces/component';
-import {useAppSelector} from "../../hooks/redux";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {apiClient} from "../../utils/api/apiClient.ts";
 import {useState} from "react";
+import {addToCart} from "../../store/cart/cart.slice.ts";
 
 interface Props {
     components: IComponentItem[];
@@ -33,6 +34,11 @@ export default function ComponentList({ components }: Props) {
     const { isSupplier } = useAppSelector(state => state.authentication);
     const [componentList, setComponentList] = useState<IComponentItem[]>([]);
     const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
+    const handleAddToCart = (component: IComponentItem) => {
+        dispatch(addToCart(component));
+    };
 
     const handleDelete = async (id: number) => {
         try {
@@ -153,6 +159,11 @@ export default function ComponentList({ components }: Props) {
                                             >
                                                 Delete
                                             </Button>
+                                            <div style={{marginTop: '10px'}}>
+                                                <Button type="primary" onClick={() => handleAddToCart(component)}>
+                                                    Add to Cart
+                                                </Button>
+                                            </div>
                                         </div>
                                     )}
                                 </div>
