@@ -15,14 +15,8 @@ const CreateOrderPage: React.FC = () => {
     const { cartItems } = useAppSelector((state: RootState) => state.cart);
     const { orders } = useAppSelector((state: RootState) => state.order);
 
-    const hasExistingOrder = orders.length > 0;
 
     const handleSubmit = async (values: { returnDate: string }) => {
-        if (hasExistingOrder) {
-            message.error("You already have an active order.");
-            return;
-        }
-
         if (!user || !cartItems.length) {
             message.error("User or cart is empty.");
             return;
@@ -79,11 +73,6 @@ const CreateOrderPage: React.FC = () => {
                     backgroundColor: "#fff",
                 }}
             >
-                {hasExistingOrder ? (
-                    <div style={{ textAlign: "center", color: "#ff4d4f" }}>
-                        You already have an active order.
-                    </div>
-                ) : (
                     <>
                         <h3>Selected Items:</h3>
                         <List
@@ -137,7 +126,6 @@ const CreateOrderPage: React.FC = () => {
                             </Form.Item>
                         </Form>
                     </>
-                )}
             </Card>
 
             <Modal
