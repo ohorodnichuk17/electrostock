@@ -18,6 +18,7 @@ import ComponentListPage from "./components/component/supplier/ComponentListPage
 import ComponentEditPage from "./components/component/supplier/ComponentEditPage.tsx";
 import OrderCreatePage from "./components/order/OrderCreatePage.tsx";
 import OrderSuccessPage from "./components/order/OrderSuccessPage.tsx";
+import OrderList from "./components/order/supplier/OrderList.tsx";
 
 function App() {
     const { isSupplier } = useAppSelector(state => state.authentication);
@@ -45,6 +46,7 @@ function App() {
                             <Route path="component/create" element={<ComponentCreatePage />} />
                             <Route path="components" element={<ComponentListPage/>}/>
                             <Route path="component/edit/:id" element={<ComponentEditPage />} />
+                            <Route path="orders" element={<OrderList />} />
                         </>
                     ) : (
                         <>
@@ -54,6 +56,7 @@ function App() {
                             <Route path="component/create" element={<Navigate to="/" />} />
                             <Route path="components" element={ <Navigate to="/" />} />
                             <Route path="component/edit/:id" element={<Navigate to="/" />} />
+                            <Route path="orders" element={<Navigate to="/"/>} />
                         </>
                     )}
                 </Route>

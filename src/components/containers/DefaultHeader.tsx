@@ -29,6 +29,7 @@ const DefaultHeader = () => {
     if (isSupplier) {
         menuItems.push({ key: 'warestore', label: 'Warehouse', path: '/warehouses' });
         menuItems.push({ key: 'component', label: 'Component', path: '/components' });
+        menuItems.push({ key: 'order', label: 'Order', path: '/orders' });
     }
 
     return (
