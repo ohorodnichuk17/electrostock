@@ -7,6 +7,7 @@ import { apiClient } from "../../utils/api/apiClient.ts";
 import {useEffect, useState} from "react";
 import { addToCart } from "../../store/cart/cart.slice.ts";
 import {getAllOrders} from "../../store/order/order.action.ts";
+import "./ComponentList.css"
 
 interface Props {
     components: IComponentItem[];
@@ -128,56 +129,56 @@ export default function ComponentList({ components }: Props) {
                                             }}
                                         />
                                     }
-                                    onMouseEnter={(e) => {
-                                        if (!returnDate) {
-                                            e.currentTarget.style.transform = 'scale(1.02)';
-                                            e.currentTarget.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.15)';
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (!returnDate) {
-                                            e.currentTarget.style.transform = 'scale(1)';
-                                            e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.1)';
-                                        }
-                                    }}
                                 >
-                                    <div style={{padding: '12px', textAlign: 'center'}}>
-
-                                        <Link to={`/component/${component.id}`}
-                                              style={{textDecoration: 'none', color: 'inherit'}}>
-                                            <h2 style={{
-                                                color: '#C39964',
-                                                fontSize: '16px',
-                                                fontWeight: 'bold',
-                                                marginBottom: '8px',
-                                                overflow: 'hidden',
-                                                whiteSpace: 'nowrap',
-                                                textOverflow: 'ellipsis',
-                                            }}>
+                                    <div style={{ padding: '12px', textAlign: 'center' }}>
+                                        <Link to={`/component/${component.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            <h2
+                                                style={{
+                                                    color: '#C39964',
+                                                    fontSize: '16px',
+                                                    fontWeight: 'bold',
+                                                    marginBottom: '8px',
+                                                    overflow: 'hidden',
+                                                    whiteSpace: 'nowrap',
+                                                    textOverflow: 'ellipsis',
+                                                }}
+                                            >
                                                 {component.name}
                                             </h2>
-                                            <Tag color={getCategoryColor(component.category)} style={{marginBottom: '6px'}}>
+                                            <Tag color={getCategoryColor(component.category)} style={{ marginBottom: '6px' }}>
                                                 {component.category}
                                             </Tag>
-                                            <div style={{fontSize: '12px', color: '#555', marginBottom: '6px'}}>
-                                                Quantity: {component.quantity}
-                                            </div>
-                                            <Tag color={getStockStatusColor(component.stockStatus)}
-                                                 style={{fontSize: '12px'}}>
+                                            <div style={{ fontSize: '12px', color: '#555', marginBottom: '6px' }}>Quantity: {component.quantity}</div>
+                                            <Tag color={getStockStatusColor(component.stockStatus)} style={{ fontSize: '12px' }}>
                                                 {component.stockStatus}
                                             </Tag>
+                                        </Link>
+
+                                        <div
+                                            style={{
+                                                marginTop: '12px',
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                gap: '10px',
+                                                flexWrap: 'wrap',
+                                                justifyContent: 'center',
+                                            }}
+                                            className="button-group"
+                                        >
                                             {isSupplier && (
-                                                <div style={{marginTop: '12px'}}>
+                                                <>
                                                     <Link to={`/component/edit/${component.id}`}>
                                                         <Button
-                                                            icon={<EditOutlined/>}
+                                                            icon={<EditOutlined />}
                                                             type="primary"
                                                             style={{
                                                                 borderColor: '#C39964',
                                                                 color: '#fff',
                                                                 backgroundColor: '#C39964',
                                                                 transition: 'all 0.3s ease',
-                                                                marginRight: '15px',
+                                                                padding: '8px 12px',
+                                                                fontSize: '12px',
+                                                                width: '120px'
                                                             }}
                                                             onMouseEnter={(e) => {
                                                                 e.currentTarget.style.backgroundColor = '#B88C56';
@@ -189,15 +190,19 @@ export default function ComponentList({ components }: Props) {
                                                             Edit
                                                         </Button>
                                                     </Link>
+
                                                     <Button
                                                         onClick={() => handleDelete(component.id)}
-                                                        icon={<DeleteOutlined/>}
+                                                        icon={<DeleteOutlined />}
                                                         danger
                                                         style={{
                                                             borderColor: '#ff4d4f',
                                                             color: '#fff',
                                                             backgroundColor: '#ff4d4f',
                                                             transition: 'all 0.3s ease',
+                                                            padding: '8px 12px',
+                                                            fontSize: '12px',
+                                                            width: '120px'
                                                         }}
                                                         onMouseEnter={(e) => {
                                                             e.currentTarget.style.backgroundColor = '#e53e3e';
@@ -208,18 +213,21 @@ export default function ComponentList({ components }: Props) {
                                                     >
                                                         Delete
                                                     </Button>
-
-                                                </div>
+                                                </>
                                             )}
-                                        </Link>
-                                        <div style={{marginTop: '10px'}}>
+
                                             <Button
                                                 type="primary"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     handleAddToCart(component);
                                                 }}
-                                                disabled={!!returnDate || cartItems.some(item => item.id === component.id)}
+                                                disabled={!!returnDate || cartItems.some((item) => item.id === component.id)}
+                                                style={{
+                                                    padding: '8px 12px',
+                                                    fontSize: '12px',
+                                                    width: '120px'
+                                                }}
                                             >
                                                 Add to Cart
                                             </Button>
