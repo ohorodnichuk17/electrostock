@@ -219,7 +219,7 @@ export default function ComponentList({ components }: Props) {
                                                     e.stopPropagation();
                                                     handleAddToCart(component);
                                                 }}
-                                                disabled={!!returnDate}
+                                                disabled={!!returnDate || cartItems.some(item => item.id === component.id)}
                                             >
                                                 Add to Cart
                                             </Button>
