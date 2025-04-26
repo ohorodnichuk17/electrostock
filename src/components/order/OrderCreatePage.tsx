@@ -40,7 +40,7 @@ const OrderCreatePage: React.FC = () => {
             await dispatch(createOrder(orderData));
             dispatch(clearCart());
             message.success("Order created successfully!");
-            navigate("/");
+            navigate("/order/success", { state: { orderedItems: cartItems } });
         } catch (error) {
             console.log("Error creating order:", error);
             message.error("Error creating the order.");

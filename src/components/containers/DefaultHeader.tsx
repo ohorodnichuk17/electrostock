@@ -165,7 +165,7 @@ const DefaultHeader = () => {
                     </Link>
                 </div>
             )}
-            <Link to="/create-order">
+            <Link to="order/create">
                 <Badge count={cartItems.length} overflowCount={99}>
                     <Button type="text" icon={<ShoppingCartOutlined />} style={{ color: '#fff' }}>
                         Cart
