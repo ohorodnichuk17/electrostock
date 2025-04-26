@@ -19,8 +19,6 @@ public class OrderEntity {
     private LocalDateTime orderDate;
     @Column(nullable = false)
     private LocalDateTime returnDate;
-    @Column(length = 100, nullable = false)
-    private String status;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

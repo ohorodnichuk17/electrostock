@@ -10,7 +10,6 @@ import java.util.List;
 public class OrderCreateDto {
     private LocalDateTime orderDate;
     private LocalDateTime returnDate;
-    private String status;
     private int componentId;
     private int userId;
 }

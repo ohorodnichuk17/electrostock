@@ -11,7 +11,6 @@ public class OrderItemDto {
     private int id;
     private LocalDateTime orderDate;
     private LocalDateTime returnDate;
-    private String status;
     private int componentId;
     private int userId;
 }

@@ -1,8 +1,6 @@
 package org.example.electrostock.controllers;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import org.example.electrostock.constants.Status;
-import org.example.electrostock.dto.component.ComponentItemDto;
 import org.example.electrostock.dto.order.OrderCreateDto;
 import org.example.electrostock.dto.order.OrderItemDto;
 import org.example.electrostock.entities.ComponentEntity;
@@ -74,10 +72,6 @@ public class OrderController {
             order.setUser(user);
             order.setComponent(component);
 
-            if(dto.getStatus() != null && !isValidStatus(dto.getStatus())) {
-                return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-            }
-
             orderRepository.save(order);
 
             System.out.println("Received DTO: " + dto);
@@ -128,11 +122,5 @@ public class OrderController {
         } catch(Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-    }
-
-    private boolean isValidStatus(String status) {
-        return status.equals(Status.Confirmed) ||
-                status.equals(Status.Delivered) ||
-                status.equals(Status.InProcessing);
     }
 }
