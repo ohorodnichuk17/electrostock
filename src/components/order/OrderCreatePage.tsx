@@ -1,29 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Input, Button, Modal, message, List, Card } from "antd";
+import { Form, Input, Button, message, List, Card } from "antd";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { RootState } from "../../store";
-import {createOrder, getAllOrders} from "../../store/order/order.action.ts";
+import {createOrder} from "../../store/order/order.action.ts";
+import {clearCart} from "../../store/cart/cart.slice.ts";
 import moment from "moment";
 
-const CreateOrderPage: React.FC = () => {
-    const [isModalVisible, setIsModalVisible] = useState(false);
+const OrderCreatePage: React.FC = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
     const { user } = useAppSelector((state: RootState) => state.authentication);
     const { cartItems } = useAppSelector((state: RootState) => state.cart);
-    const { orders } = useAppSelector((state: RootState) => state.order);
-
 
     const handleSubmit = async (values: { returnDate: string }) => {
         if (!user || !cartItems.length) {
             message.error("User or cart is empty.");
             return;
         }
-
-        console.log("User object:", user);
-        console.log("Cart Items:", cartItems);
 
         const orderData = {
             orderDate: moment().format("YYYY-MM-DDTHH:mm:ss"),
@@ -43,7 +38,7 @@ const CreateOrderPage: React.FC = () => {
         try {
             console.log("Sending request with order data:", orderData);
             await dispatch(createOrder(orderData));
-            setIsModalVisible(true);
+            dispatch(clearCart());
             message.success("Order created successfully!");
             navigate("/");
         } catch (error) {
@@ -51,7 +46,6 @@ const CreateOrderPage: React.FC = () => {
             message.error("Error creating the order.");
         }
     };
-
 
     return (
         <div
@@ -127,30 +121,8 @@ const CreateOrderPage: React.FC = () => {
                         </Form>
                     </>
             </Card>
-
-            <Modal
-                title="Order Created Successfully"
-                visible={isModalVisible}
-                onCancel={() => setIsModalVisible(false)}
-                footer={[
-                    <Button
-                        key="close"
-                        type="primary"
-                        onClick={() => setIsModalVisible(false)}
-                        style={{
-                            backgroundColor: "#C39964",
-                            borderColor: "#C39964",
-                            color: "#fff",
-                        }}
-                    >
-                        Close
-                    </Button>,
-                ]}
-            >
-                <p>Your order has been created successfully!</p>
-            </Modal>
         </div>
     );
 };
 
-export default CreateOrderPage;
+export default OrderCreatePage;

@@ -16,7 +16,7 @@ import MicrochipWarestore from "./components/warestore/MicrochipWarestore.tsx";
 import ComponentCreatePage from "./components/component/supplier/ComponentCreatePage.tsx";
 import ComponentListPage from "./components/component/supplier/ComponentListPage.tsx";
 import ComponentEditPage from "./components/component/supplier/ComponentEditPage.tsx";
-import CreateOrderPage from "./components/order/CreateOrderPage.tsx";
+import OrderCreatePage from "./components/order/OrderCreatePage.tsx";
 
 function App() {
     const { isSupplier } = useAppSelector(state => state.authentication);
@@ -33,7 +33,7 @@ function App() {
                     <Route path="warehouse/resistors" element={<ResistorWarestore />} />
                     <Route path="warehouse/controllers" element={<ControllerWarestore />} />
                     <Route path="warehouse/microchips" element={<MicrochipWarestore />} />
-                    <Route path="create-order" element={<CreateOrderPage />} />
+                    <Route path="create-order" element={<OrderCreatePage />} />
 
                     {isSupplier ? (
                         <>
