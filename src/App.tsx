@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
 import DefaultLayout from "./components/containers/DefaultLayout.tsx";
 import RegisterPage from "./components/authentication/RegisterPage.tsx";
@@ -21,48 +20,48 @@ import OrderSuccessPage from "./components/order/OrderSuccessPage.tsx";
 import OrderList from "./components/order/supplier/OrderList.tsx";
 
 function App() {
-    const { isSupplier } = useAppSelector(state => state.authentication);
+   const { isSupplier } = useAppSelector(state => state.authentication);
 
-    return (
-        <>
-            <Routes>
-                <Route path="/" element={<DefaultLayout />}>
-                    <Route index element={<MainPage />} />
-                    <Route path="register" element={<RegisterPage />} />
-                    <Route path="login" element={<LoginPage />} />
-                    <Route path="register-success" element={<RegisterSuccessPage />} />
-                    <Route path="warehouse/transistors" element={<TransistorWarestore />} />
-                    <Route path="warehouse/resistors" element={<ResistorWarestore />} />
-                    <Route path="warehouse/controllers" element={<ControllerWarestore />} />
-                    <Route path="warehouse/microchips" element={<MicrochipWarestore />} />
-                    <Route path="order/create" element={<OrderCreatePage />} />
-                    <Route path="order/success" element={<OrderSuccessPage />} />
+   return (
+      <>
+         <Routes>
+            <Route path="/" element={<DefaultLayout />}>
+               <Route index element={<MainPage />} />
+               <Route path="register" element={<RegisterPage />} />
+               <Route path="login" element={<LoginPage />} />
+               <Route path="register-success" element={<RegisterSuccessPage />} />
+               <Route path="warehouse/transistors" element={<TransistorWarestore />} />
+               <Route path="warehouse/resistors" element={<ResistorWarestore />} />
+               <Route path="warehouse/controllers" element={<ControllerWarestore />} />
+               <Route path="warehouse/microchips" element={<MicrochipWarestore />} />
+               <Route path="order/create" element={<OrderCreatePage />} />
+               <Route path="order/success" element={<OrderSuccessPage />} />
 
-                    {isSupplier ? (
-                        <>
-                            <Route path="warehouses" element={<WarestoreListPage />} />
-                            <Route path="warehouse/create" element={<WarestoreCreatePage />} />
-                            <Route path="warehouse/edit/:id" element={<WarestoreEditPage />} />
-                            <Route path="component/create" element={<ComponentCreatePage />} />
-                            <Route path="components" element={<ComponentListPage/>}/>
-                            <Route path="component/edit/:id" element={<ComponentEditPage />} />
-                            <Route path="orders" element={<OrderList />} />
-                        </>
-                    ) : (
-                        <>
-                            <Route path="warehouses" element={<Navigate to="/" />} />
-                            <Route path="warehouse/create" element={<Navigate to="/" />} />
-                            <Route path="warehouse/edit/:id" element={<Navigate to="/" />} />
-                            <Route path="component/create" element={<Navigate to="/" />} />
-                            <Route path="components" element={ <Navigate to="/" />} />
-                            <Route path="component/edit/:id" element={<Navigate to="/" />} />
-                            <Route path="orders" element={<Navigate to="/"/>} />
-                        </>
-                    )}
-                </Route>
-            </Routes>
-        </>
-    );
+               {isSupplier ? (
+                  <>
+                     <Route path="warehouses" element={<WarestoreListPage />} />
+                     <Route path="warehouse/create" element={<WarestoreCreatePage />} />
+                     <Route path="warehouse/edit/:id" element={<WarestoreEditPage />} />
+                     <Route path="component/create" element={<ComponentCreatePage />} />
+                     <Route path="components" element={<ComponentListPage />} />
+                     <Route path="component/edit/:id" element={<ComponentEditPage />} />
+                     <Route path="orders" element={<OrderList />} />
+                  </>
+               ) : (
+                  <>
+                     <Route path="warehouses" element={<Navigate to="/" />} />
+                     <Route path="warehouse/create" element={<Navigate to="/" />} />
+                     <Route path="warehouse/edit/:id" element={<Navigate to="/" />} />
+                     <Route path="component/create" element={<Navigate to="/" />} />
+                     <Route path="components" element={<Navigate to="/" />} />
+                     <Route path="component/edit/:id" element={<Navigate to="/" />} />
+                     <Route path="orders" element={<Navigate to="/" />} />
+                  </>
+               )}
+            </Route>
+         </Routes>
+      </>
+   );
 }
 
 export default App;
