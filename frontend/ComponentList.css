@@ -1,0 +1,63 @@
+@media (max-width: 768px) {
+    .ant-card {
+        padding: 10px !important;
+    }
+
+    .ant-btn {
+        font-size: 10px !important;
+        padding: 6px 10px !important;
+    }
+
+    .ant-card-cover img {
+        height: 100px !important;
+    }
+
+    h2 {
+        font-size: 14px !important;
+    }
+
+    .ant-tag {
+        font-size: 10px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .ant-card {
+        padding: 8px !important;
+    }
+
+    .ant-btn {
+        font-size: 9px !important;
+        padding: 5px 8px !important;
+    }
+
+    .ant-card-cover img {
+        height: 80px !important;
+    }
+
+    h2 {
+        font-size: 12px !important;
+    }
+
+    .ant-tag {
+        font-size: 9px !important;
+    }
+}
+
+.button-group button {
+    flex: 1 1 100px;
+    min-width: 100px;
+    max-width: 150px;
+}
+
+@media (max-width: 576px) {
+    .button-group {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .button-group button {
+        width: 100%;
+        max-width: 250px;
+    }
+}
