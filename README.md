@@ -83,4 +83,4 @@ The application provides a comprehensive API for managing users, components, ord
 * Some components have a "Reserved until" date, indicating a reservation or hold on the item. 
 
 ##  License
-
+This project is licensed under the MIT License.
